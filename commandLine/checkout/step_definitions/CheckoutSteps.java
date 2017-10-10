@@ -12,6 +12,8 @@ public class CheckoutSteps{
 	// Creating object here so every When call will update 
 	Checkout checkout=new Checkout(); 
 
+	// Pattern: \"([^\"]*)\"
+	// Matches: everything starting from a " that is NOT a " until the next "
 @Given("^the price of a \"([^\"]*)\" is (\\d+)c$")
 public void thePriceOfAIsC(String name, int price) throws Throwable {
 	if (name.equals("banana")){
