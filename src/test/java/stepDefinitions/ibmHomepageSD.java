@@ -1,6 +1,10 @@
 package stepDefinitions;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -21,20 +25,24 @@ public class ibmHomepageSD {
 
 	@Given("^I click on Marketplace button$")
 	public void i_click_on_Marketplace_button() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+		driver.findElement(By.linkText("Marketplace")).click();
 	}
 
 	@Given("^Marketplace page loads$")
 	public void marketplace_page_loads() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+		WebDriverWait waiter = new WebDriverWait(driver, 5); // timeout in seconds
+		waiter.until(new ExpectedCondition<Boolean>() {
+
+			// Selenium waits until this returns true or timeout exceeded
+			public Boolean apply(WebDriver driver) {
+				return driver.findElement(By.tagName("title")).getText().equals("IBM Marketplace - United Kingdom");
+			}
+		}); // end of anonymous class
 	}
 
 	@When("^I click to \"([^\"]*)\" field$")
 	public void i_click_to_field(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+		driver.findElement(By.cssSelector("input[placeholder='Search IBM Marketplace']"));
 	}
 
 	@When("^I enter \"([^\"]*)\"$")
