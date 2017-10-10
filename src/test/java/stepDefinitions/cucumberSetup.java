@@ -26,7 +26,7 @@ public class cucumberSetup {
 		driver.findElement(By.linkText("Cucumber")).click();
 	}
 
-	@Then("^the page title should be visible:w$")
+	@Then("^the page title should be visible$")
 	public void the_page_title_should_be_visible_w() throws Throwable {
 		System.out.println("Checking page title");
 		System.out.println(driver.getTitle());
