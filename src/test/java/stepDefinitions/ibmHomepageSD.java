@@ -14,13 +14,27 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import drivers.ChromeWebDriver;
 import drivers.FirefoxWebDriver;
 
 public class ibmHomepageSD {
 	// TODO write the Driver implementation
-	WebDriver driver = new FirefoxWebDriver().initializeFirefoxWebDriver();
+	WebDriver driver;
 
 	// TODO create a PageObject for IBM com and move the Driver to there, extend this class to there
+
+	@Given("^I start \"([^\"]*)\"$")
+	public void i_start(String browser) throws Throwable {
+		System.out.println("Starting test with browser " + browser);
+		switch (browser.toLowerCase()) {
+		case "firefox":
+			driver = new FirefoxWebDriver().initializeFirefoxWebDriver();
+			break;
+		case "chrome":
+			driver = new ChromeWebDriver().initializeChromeWebDriver();
+			break;
+		}
+	}
 
 	@Given("^I open \"([^\"]*)\"$")
 	public void i_open_ibm_com(String url) throws Throwable {
@@ -34,12 +48,17 @@ public class ibmHomepageSD {
 
 	@Given("^Marketplace page loads$")
 	public void marketplace_page_loads() throws Throwable {
-		WebDriverWait waiter = new WebDriverWait(driver, 5); // timeout in seconds
+		String marketPlaceXPath="//*[@id=\"ibm-top\"]/div[3]/div[1]/a";
+		WebDriverWait waiter = new WebDriverWait(driver, 15); // timeout in seconds
 		waiter.until(new ExpectedCondition<Boolean>() {
 
 			// Selenium waits until this returns true or timeout exceeded
 			public Boolean apply(WebDriver driver) {
-				return driver.findElement(By.tagName("title")).getText().equals("IBM Marketplace - United Kingdom");
+				//This only works with FireFox driver
+//				return driver.findElement(By.tagName("title")).getText().contains("IBM Marketplace - United Kingdom");
+
+		String marketPlaceXPath="//*[@id=\"ibm-top\"]/div[3]/div[1]/a";
+		return driver.findElement(By.xpath(marketPlaceXPath)).getText().contains("Marketplace");
 			}
 		}); // end of anonymous class
 	}
