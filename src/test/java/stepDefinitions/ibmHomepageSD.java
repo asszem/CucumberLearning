@@ -51,8 +51,8 @@ public class ibmHomepageSD {
 	}
 
 	@When("^I enter \"([^\"]*)\"$")
-	public void i_enter(String arg1) throws Throwable {
-		driver.findElement(By.cssSelector("input[placeholder='Search IBM Marketplace']")).sendKeys("z14");
+	public void i_enter(String keyEntered) throws Throwable {
+		driver.findElement(By.cssSelector("input[placeholder='Search IBM Marketplace']")).sendKeys(keyEntered);
 	}
 
 	@When("^I click on the Search button$")
@@ -61,62 +61,85 @@ public class ibmHomepageSD {
 	}
 
 	@Then("^The result should include the \"([^\"]*)\" page$")
-	public void the_result_should_include_the_page(String arg1) throws Throwable {
-		// Wait until page is loaded
+	public void the_result_should_include_the_page(String expectedResult) throws Throwable {
+		System.out.println("Result page verification step started...");
+
+		// Locate reusutl by xPath
+		String resultXPath = ".//*[@id='mg-hits-wrapper']/div[1]/article/a/h2";
+		WebElement result = driver.findElement(By.xpath(resultXPath));
+		System.out.println("Trying xpath..." + result.getText());
+
+		// Wait until page loads
 		WebDriverWait waiter = new WebDriverWait(driver, 15); // timeout in seconds
-
-		
-		
-		for (WebElement element:driver.findElements(By.tagName("class"))){
-		System.out.println("Class name:" + element.getText());	
-		}
-
-		String classNameOfPageSize="mg-pagesize-option__text";
-		ExpectedCondition<WebElement> condition = ExpectedConditions.presenceOfElementLocated(By.className(classNameOfPageSize));
-		System.out.println("Condition status="+condition.apply(driver));
+		ExpectedCondition<Boolean> condition = ExpectedConditions.attributeToBe(By.xpath(resultXPath), "class",
+				"offering--name ibm-bold ibm-padding-bottom-0 ibm-linkcolor-default");
 		waiter.until(condition);
-		System.out.println("Condition passed (elvileg)");
-		
-		//When listing all h2 elements, the elements from Marketplace are displayed.
-//		ExpectedCondition<List<WebElement>> condition = ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("h2"));
-//		System.out.println("Condition status="+condition.apply(driver));
+
+		// Make assertion
+		assertEquals(expectedResult, result.getText());
+
+		// FAILED ATTEMPTS
+
+		// By class name of result h2 tag
+		// String resultClassName="offering--name ibm-bold ibm-padding-bottom-0 ibm-linkcolor-default";
+		// //Listing all elements for resultClassName
+		// int counter=0;
+		// for (WebElement element:driver.findElements(By.className(resultClassName))){
+		// System.out.println("Class text= "+element.getText());
+		// counter++;
+		// }
+		// System.out.println("Found elements: "+counter);
+
+		// By Class name of page size options
+		// **********************
+		// for (WebElement element:driver.findElements(By.tagName("class"))){
+		// System.out.println("Class name:" + element.getText());
+		// }
+		//
+		// String classNameOfPageSize="mg-pagesize-option__text";
+		// ExpectedCondition<WebElement> condition = ExpectedConditions.presenceOfElementLocated(By.className(classNameOfPageSize));
+		// System.out.println("Condition status="+condition.apply(driver));
+		// waiter.until(condition);
+		// System.out.println("Condition passed (elvileg)");
+
+		// By checking h2 tag text()
+		// **********************
+		// ExpectedCondition<List<WebElement>> condition = ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("h2"));
+		// System.out.println("Condition status="+condition.apply(driver));
 		// List<WebElement> h2tags = driver.findElements(By.tagName("h2"));
 		// System.out.println("Listing all h2 tags");
 		// for (WebElement h2tag:h2tags){
 		// System.out.println("h2 tag:" + h2tag.getText());
 		// }
-		
-//		waiter.until(new ExpectedCondition<Boolean>() {
-//			public Boolean apply(WebDriver driver) {
-//				//Does not work
-//				// boolean status = driver.findElement(By.tagName("h2")).getText().contains("z14");
-//				// String h2Text = driver.findElement(By.tagName("h2")).getText();
-//				// System.out.println("h2 text=" + h2Text);
-//				// System.out.println("h2 contains z14=" + status);
-//
-//				//Does work, but the test fails
-////				boolean status = driver.getTitle().contains("IBM Product Catalog Search");
-////				System.out.println("Status="+status);
-//				String resultXpath=".//*[@id='mg-hits-wrapper']/div[1]/article/a/h2";
-//				WebElement status=driver.findElement(By.xpath(resultXpath));
-//				System.out.println("Status="+status.isDisplayed());
-//				System.out.println("text of xpath" + status.getText());
-//				return status.isDisplayed();
-//			}
-//		});
+		// waiter.until(new ExpectedCondition<Boolean>() {
+		// public Boolean apply(WebDriver driver) {
+		// //Does not work
+		// // boolean status = driver.findElement(By.tagName("h2")).getText().contains("z14");
+		// // String h2Text = driver.findElement(By.tagName("h2")).getText();
+		// // System.out.println("h2 text=" + h2Text);
+		// // System.out.println("h2 contains z14=" + status);
+		//
+		// //Does work, but the test fails
+		//// boolean status = driver.getTitle().contains("IBM Product Catalog Search");
+		//// System.out.println("Status="+status);
+		// String resultXpath=".//*[@id='mg-hits-wrapper']/div[1]/article/a/h2";
+		// WebElement status=driver.findElement(By.xpath(resultXpath));
+		// System.out.println("Status="+status.isDisplayed());
+		// System.out.println("text of xpath" + status.getText());
+		// return status.isDisplayed();
+		// }
+		// });
 
-		// Sleeping the thread doesn't work
+		// By Sleeping the thread
+		// **********************
 		// System.out.println("Main thread sleeps");
 		// Thread.sleep(10000); //10 sec
 		// System.out.println("Main thread wakes, assertion starts");
-		
 		// Locating the element by h2 tag does not work
-//		String h2Text = driver.findElement(By.tagName("h2")).getText();
-//		System.out.println("h2 text=" + h2Text);
-//		boolean status = driver.findElement(By.tagName("h2")).getText().contains("z14");
-//		System.out.println("After wait: h2 contains z14=" + status);
-
-		assertEquals("IBM z14", driver.findElement(By.tagName("h2")).getText());
+		// String h2Text = driver.findElement(By.tagName("h2")).getText();
+		// System.out.println("h2 text=" + h2Text);
+		// boolean status = driver.findElement(By.tagName("h2")).getText().contains("z14");
+		// System.out.println("After wait: h2 contains z14=" + status);
 	}
 
 }
