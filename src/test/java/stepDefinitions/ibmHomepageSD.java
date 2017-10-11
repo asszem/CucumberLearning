@@ -65,10 +65,27 @@ public class ibmHomepageSD {
 		// Wait until page is loaded
 		WebDriverWait waiter = new WebDriverWait(driver, 15); // timeout in seconds
 
-		ExpectedCondition<List<WebElement>> condition = ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("h2"));
-		waiter.until(condition);
-		System.out.println(condition);
+		
+		
+		for (WebElement element:driver.findElements(By.tagName("class"))){
+		System.out.println("Class name:" + element.getText());	
+		}
 
+		String classNameOfPageSize="mg-pagesize-option__text";
+		ExpectedCondition<WebElement> condition = ExpectedConditions.presenceOfElementLocated(By.className(classNameOfPageSize));
+		System.out.println("Condition status="+condition.apply(driver));
+		waiter.until(condition);
+		System.out.println("Condition passed (elvileg)");
+		
+		//When listing all h2 elements, the elements from Marketplace are displayed.
+//		ExpectedCondition<List<WebElement>> condition = ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("h2"));
+//		System.out.println("Condition status="+condition.apply(driver));
+		// List<WebElement> h2tags = driver.findElements(By.tagName("h2"));
+		// System.out.println("Listing all h2 tags");
+		// for (WebElement h2tag:h2tags){
+		// System.out.println("h2 tag:" + h2tag.getText());
+		// }
+		
 //		waiter.until(new ExpectedCondition<Boolean>() {
 //			public Boolean apply(WebDriver driver) {
 //				//Does not work
