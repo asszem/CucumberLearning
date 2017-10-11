@@ -1,12 +1,16 @@
 package stepDefinitions;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -42,25 +46,60 @@ public class ibmHomepageSD {
 
 	@When("^I click to \"([^\"]*)\" field$")
 	public void i_click_to_field(String arg1) throws Throwable {
-		driver.findElement(By.cssSelector("input[placeholder='Search IBM Marketplace']"));
+		driver.findElement(By.cssSelector("input[placeholder='Search IBM Marketplace']")).click();
+		;
 	}
 
 	@When("^I enter \"([^\"]*)\"$")
 	public void i_enter(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+		driver.findElement(By.cssSelector("input[placeholder='Search IBM Marketplace']")).sendKeys("z14");
 	}
 
 	@When("^I click on the Search button$")
 	public void i_click_on_the_Search_button() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+		driver.findElement(By.className("search--submit")).click();
 	}
 
 	@Then("^The result should include the \"([^\"]*)\" page$")
 	public void the_result_should_include_the_page(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+		// Wait until page is loaded
+		WebDriverWait waiter = new WebDriverWait(driver, 15); // timeout in seconds
+
+		ExpectedCondition<List<WebElement>> condition = ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("h2"));
+		waiter.until(condition);
+		System.out.println(condition);
+
+//		waiter.until(new ExpectedCondition<Boolean>() {
+//			public Boolean apply(WebDriver driver) {
+//				//Does not work
+//				// boolean status = driver.findElement(By.tagName("h2")).getText().contains("z14");
+//				// String h2Text = driver.findElement(By.tagName("h2")).getText();
+//				// System.out.println("h2 text=" + h2Text);
+//				// System.out.println("h2 contains z14=" + status);
+//
+//				//Does work, but the test fails
+////				boolean status = driver.getTitle().contains("IBM Product Catalog Search");
+////				System.out.println("Status="+status);
+//				String resultXpath=".//*[@id='mg-hits-wrapper']/div[1]/article/a/h2";
+//				WebElement status=driver.findElement(By.xpath(resultXpath));
+//				System.out.println("Status="+status.isDisplayed());
+//				System.out.println("text of xpath" + status.getText());
+//				return status.isDisplayed();
+//			}
+//		});
+
+		// Sleeping the thread doesn't work
+		// System.out.println("Main thread sleeps");
+		// Thread.sleep(10000); //10 sec
+		// System.out.println("Main thread wakes, assertion starts");
+		
+		// Locating the element by h2 tag does not work
+//		String h2Text = driver.findElement(By.tagName("h2")).getText();
+//		System.out.println("h2 text=" + h2Text);
+//		boolean status = driver.findElement(By.tagName("h2")).getText().contains("z14");
+//		System.out.println("After wait: h2 contains z14=" + status);
+
+		assertEquals("IBM z14", driver.findElement(By.tagName("h2")).getText());
 	}
 
 }
