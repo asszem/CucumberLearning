@@ -10,9 +10,16 @@ Scenario Outline: Clicking on the Marketplace button
 	And I enter "<searchTerm>" 
 	And I click on the Search button 
 	Then The result should include the "<searchResult>" page 
+	
+
 	Examples: 
 		| browser |searchTerm	|searchResult	|
 		| firefox |z14			|IBM z14		|
-		| chrome  |z13			|IBM z13		|
-		#The below will fail as the result is located by xpath and not by content
-		#|z13		|IBM z Systems Solution Edition for SAP Applications		|
+		| chrome  |z13			|IBM z13	|	
+		#The below will fail as the result is located by xpath and not by content|
+		#|z13		|IBM z Systems Solution Edition for SAP Applications		|  
+	
+	Examples:
+		| browser |searchTerm	|searchResult										|
+		| firefox |z/os			|IBM Tivoli NetView for z/OS						|
+		| chrome  |windows		|IBM Db2 Merge Backup for Linux UNIX and Windows	|

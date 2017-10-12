@@ -28,7 +28,7 @@ public class ChromeWebDriver {
 		driver.manage().timeouts().pageLoadTimeout(pageLoadTimeout, timeUnit);
 
 		System.out.println("Driver: ChromeDriver");
-		System.out.println("SetCapability marionette: " + marionette);
+//		System.out.println("SetCapability marionette: " + marionette);
 		System.out.println("Implicite timeout: " + impliciteTimeout + " " + timeUnit.toString());
 		System.out.println("Pageload timeout: " + pageLoadTimeout + " " + timeUnit.toString());
 		return driver;
