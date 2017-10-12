@@ -32,5 +32,10 @@ public class cucumberSetup {
 		System.out.println(driver.getTitle());
 //		driver.close();
 	}
+	
+	@When("^I navigate to Java WebDriver page$")
+	public void i_navigate_to_Javam_WebDriver_page() throws Throwable {
+		driver.findElement(By.linkText("Java WebDriver")).click();
+	}
 
 }

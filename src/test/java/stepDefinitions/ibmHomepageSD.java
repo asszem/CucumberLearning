@@ -18,7 +18,6 @@ import drivers.ChromeWebDriver;
 import drivers.FirefoxWebDriver;
 
 public class ibmHomepageSD {
-	// TODO write the Driver implementation
 	WebDriver driver;
 
 	// TODO create a PageObject for IBM com and move the Driver to there, extend this class to there
