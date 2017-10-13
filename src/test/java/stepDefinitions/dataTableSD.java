@@ -18,14 +18,15 @@ public class dataTableSD {
 		// List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
 		// E,K,V must be a scalar (String, Integer, Date, enum etc)
 
-		//DataTable is unmodifiable, so it's content needs to be changed to an ArrayList
+		// DataTable is unmodifiable, so it's content needs to be changed to an ArrayList
 
 		modifiableList = new ArrayList<List<String>>(); // Create an array list that will hold List<String>
 		for (List<String> currentRow : inputTable.raw()) { // Retrieve each row from table as List<String>
-			System.out.println("currentRow=" + currentRow.toString());
-			System.out.println("arrayList size=" + modifiableList.size());
+			// System.out.println("currentRow=" + currentRow.toString());
+			// System.out.println("arrayList size=" + modifiableList.size());
 			modifiableList.add(new ArrayList<String>(currentRow)); // Add the current row to the ArrayList
 		}
+		System.out.println("Array List created from input DataTable: " + modifiableList);
 
 		// Result:
 		// currentRow=[country, customer_number, customer_name]
@@ -37,12 +38,19 @@ public class dataTableSD {
 
 	@When("^Tibor changes his name to Klara$")
 	public void tibor_changes_his_name_to_Kl_ra() throws Throwable {
-		//Perform the actual modification of the ArrayList
+		// Perform the actual modification of the ArrayList
 
-		System.out.println("Before: "+ modifiableList.get(3).get(2));
-//		modifiableList.get(3).get(2).replace("Tibor", "Klara");
+		System.out.println("Before Tibor renamed Klara: " + modifiableList.get(3).get(2));
+		// modifiableList.get(3).get(2).replace("Tibor", "Klara");
 		modifiableList.get(3).set(2, "Klara");
-		System.out.println("After: "+modifiableList.get(3).get(2));
+		System.out.println("After Tibor renamed Klara: " + modifiableList.get(3).get(2));
+	}
+
+	@When("^Joe changes his country to (\\d+)$")
+	public void joe_changes_his_country_to(int newValue) throws Throwable {
+		System.out.println("Before Joe changed country: " + modifiableList.get(1).get(0));
+		modifiableList.get(1).set(0, Integer.toString(newValue));
+		System.out.println("After Joe changed country: " + modifiableList.get(1).get(0));
 	}
 
 	@Then("^the table should look like this$")

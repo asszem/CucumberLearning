@@ -41,7 +41,7 @@ public class FirefoxWebDriver {
 		System.out.println("GeckoDriver: Windows GeckoDriverX64");
 		System.out.println("SetCapability marionette: " + marionette);
 		System.out.println("Implicite timeout: " + impliciteTimeout + " " + timeUnit.toString());
-		System.out.println("Pageload timeout: " + pageLoadTimeout + " " + timeUnit.toString());
+//		System.out.println("Pageload timeout: " + pageLoadTimeout + " " + timeUnit.toString());
 		return driver;
 	}
 }
