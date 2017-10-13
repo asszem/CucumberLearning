@@ -4,6 +4,7 @@ Scenario Outline: Clicking on the Marketplace button
 	and entering search term to the search field on Marketplace page
 	Given I start "<browser>" 
 	Given I open "https://ibm.com" 
+	#TODO add a step to accept cookie warnings (if present)
 	And I click on Marketplace button 
 	And Marketplace page loads 
 	When I click to "Search IBM Marketplace" field 

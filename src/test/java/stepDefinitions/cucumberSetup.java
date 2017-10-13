@@ -15,7 +15,7 @@ public class cucumberSetup {
 	public void i_navigate_to_TheTestRoom_com() throws Throwable {
 		System.out.println("Going to TheTestRoom.com");
 		System.out.println("Windows GeckoDriverX64 started");
-		System.setProperty("webdriver.gecko.driver", "C:\\geckodriverX64.exe");
+		System.setProperty("webdriver.gecko.driver", "C:\\webdrivers\\geckodriverX64.exe");
 		driver = new FirefoxDriver();
 		driver.navigate().to("http://www.thetestroom.com");
 	}

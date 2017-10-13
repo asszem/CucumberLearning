@@ -7,7 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class ChromeWebDriver {
-	//TODO export these to an external config file and read it here
+
+	// TODO export these to an external config file and read it here
 	long impliciteTimeout = 10;
 	long pageLoadTimeout = 15;
 	TimeUnit timeUnit = TimeUnit.SECONDS;
@@ -17,18 +18,17 @@ public class ChromeWebDriver {
 	public WebDriver initializeChromeWebDriver() {
 
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-//		capabilities.setCapability("marionette", marionette);
-
-		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chrome\\windows\\chromedriver.exe");
+		// capabilities.setCapability("marionette", marionette);
+		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait(impliciteTimeout, timeUnit);
-		
-		//Throws InvalidArgumentException for geckodriver. Works for chromedriver
+
+		// Throws InvalidArgumentException for geckodriver. Works for chromedriver
 		driver.manage().timeouts().pageLoadTimeout(pageLoadTimeout, timeUnit);
 
 		System.out.println("Driver: ChromeDriver");
-//		System.out.println("SetCapability marionette: " + marionette);
+		// System.out.println("SetCapability marionette: " + marionette);
 		System.out.println("Implicite timeout: " + impliciteTimeout + " " + timeUnit.toString());
 		System.out.println("Pageload timeout: " + pageLoadTimeout + " " + timeUnit.toString());
 		return driver;
