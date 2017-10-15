@@ -1,5 +1,6 @@
 package drivers;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -32,5 +33,14 @@ public class ChromeWebDriver {
 		System.out.println("Implicite timeout: " + impliciteTimeout + " " + timeUnit.toString());
 		System.out.println("Pageload timeout: " + pageLoadTimeout + " " + timeUnit.toString());
 		return driver;
+	}
+
+	public void killall() {
+		String command = "taskkill chromedriver";
+		try {
+			Process p = Runtime.getRuntime().exec(command);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -18,6 +19,7 @@ import drivers.ChromeWebDriver;
 import drivers.FirefoxWebDriver;
 
 public class ibmHomepageSD {
+
 	WebDriver driver;
 
 	// TODO create a PageObject for IBM com and move the Driver to there, extend this class to there
@@ -40,6 +42,38 @@ public class ibmHomepageSD {
 		driver.get(url);
 	}
 
+	// Warnings are in an iframe that needs to be handled
+	//http://toolsqa.com/selenium-webdriver/handling-iframes-using-selenium-webdriver/
+	@Given("^I accept the cookie warning$")
+	public void i_accept_the_cookie_warning() throws Throwable {
+		System.out.println("Cookie warning step started...");
+
+		// Finding ALL iFrames
+		// By executing a java script
+		JavascriptExecutor exe = (JavascriptExecutor) driver;
+		Integer numberOfFrames = Integer.parseInt(exe.executeScript("return window.length").toString());
+//		System.out.println("Number of iframes on the page are " + numberOfFrames);
+
+		// By finding all the web elements using iframe tag
+		List<WebElement> iframeElements = driver.findElements(By.tagName("iframe"));
+//		System.out.println("The total number of iframes are " + iframeElements.size());
+		
+		String iframeIDstring="pop-frame09112811852654618";
+		WebElement iframeID = driver.findElement(By.id(iframeIDstring));
+		System.out.println("Switching to iframe" + iframeID);
+		driver.switchTo().frame(iframeID);
+		
+		//Finding and clicking the Accept button
+		 String xPath = "/html/body/div[8]/div[1]/div/div[4]/a[1]";
+		 WebElement element = driver.findElement(By.xpath(xPath));
+		 element.click();
+		 
+		 System.out.println("Switching back to main page");
+		//Switching back to main page
+		driver.switchTo().defaultContent();
+		
+	}
+
 	@Given("^I click on Marketplace button$")
 	public void i_click_on_Marketplace_button() throws Throwable {
 		driver.findElement(By.linkText("Marketplace")).click();
@@ -47,17 +81,17 @@ public class ibmHomepageSD {
 
 	@Given("^Marketplace page loads$")
 	public void marketplace_page_loads() throws Throwable {
-		String marketPlaceXPath="//*[@id=\"ibm-top\"]/div[3]/div[1]/a";
+		String marketPlaceXPath = "//*[@id=\"ibm-top\"]/div[3]/div[1]/a";
 		WebDriverWait waiter = new WebDriverWait(driver, 15); // timeout in seconds
 		waiter.until(new ExpectedCondition<Boolean>() {
 
 			// Selenium waits until this returns true or timeout exceeded
 			public Boolean apply(WebDriver driver) {
-				//This only works with FireFox driver
-//				return driver.findElement(By.tagName("title")).getText().contains("IBM Marketplace - United Kingdom");
+				// This only works with FireFox driver
+				// return driver.findElement(By.tagName("title")).getText().contains("IBM Marketplace - United Kingdom");
 
-		String marketPlaceXPath="//*[@id=\"ibm-top\"]/div[3]/div[1]/a";
-		return driver.findElement(By.xpath(marketPlaceXPath)).getText().contains("Marketplace");
+				String marketPlaceXPath = "//*[@id=\"ibm-top\"]/div[3]/div[1]/a";
+				return driver.findElement(By.xpath(marketPlaceXPath)).getText().contains("Marketplace");
 			}
 		}); // end of anonymous class
 	}
@@ -158,6 +192,7 @@ public class ibmHomepageSD {
 		// System.out.println("h2 text=" + h2Text);
 		// boolean status = driver.findElement(By.tagName("h2")).getText().contains("z14");
 		// System.out.println("After wait: h2 contains z14=" + status);
+
 	}
 
 }

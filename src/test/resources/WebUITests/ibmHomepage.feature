@@ -4,7 +4,7 @@ Scenario Outline: Clicking on the Marketplace button
 	and entering search term to the search field on Marketplace page
 	Given I start "<browser>" 
 	Given I open "https://ibm.com" 
-	#TODO add a step to accept cookie warnings (if present)
+	Given I accept the cookie warning
 	And I click on Marketplace button 
 	And Marketplace page loads 
 	When I click to "Search IBM Marketplace" field 
@@ -16,11 +16,11 @@ Scenario Outline: Clicking on the Marketplace button
 	Examples: 
 		| browser |searchTerm	|searchResult	|
 		| firefox |z14			|IBM z14		|
-		| chrome  |z13			|IBM z13	|	
+#		| chrome  |z13			|IBM z13	|	
 		#The below will fail as the result is located by xpath and not by content|
 		#|z13		|IBM z Systems Solution Edition for SAP Applications		|  
 	
 	Examples:
 		| browser |searchTerm	|searchResult										|
-		| firefox |z/os			|IBM Tivoli NetView for z/OS						|
-		| chrome  |windows		|IBM Db2 Merge Backup for Linux UNIX and Windows	|
+#		| firefox |z/os			|IBM Tivoli NetView for z/OS						|
+#		| chrome  |windows		|IBM Db2 Merge Backup for Linux UNIX and Windows	|
