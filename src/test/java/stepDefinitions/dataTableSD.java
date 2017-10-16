@@ -8,7 +8,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class dataTableSD {
+public class DataTableSD {
 
 	private List<List<String>> modifiableList; // Create a list that consists of lists<String>
 

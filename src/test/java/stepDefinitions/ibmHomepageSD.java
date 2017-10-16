@@ -18,7 +18,7 @@ import cucumber.api.java.en.When;
 import drivers.ChromeWebDriver;
 import drivers.FirefoxWebDriver;
 
-public class ibmHomepageSD {
+public class IbmHomepageSD {
 
 	WebDriver driver;
 
@@ -48,15 +48,8 @@ public class ibmHomepageSD {
 	public void i_accept_the_cookie_warning() throws Throwable {
 		System.out.println("Cookie warning step started...");
 
-		// Finding ALL iFrames
-		// By executing a java script
-		JavascriptExecutor exe = (JavascriptExecutor) driver;
-		Integer numberOfFrames = Integer.parseInt(exe.executeScript("return window.length").toString());
-		// System.out.println("Number of iframes on the page are " + numberOfFrames);
-
-		// By finding all the web elements using iframe tag
+		// Finding ALL iFrames By finding all the web elements using iframe tag
 		List<WebElement> iframeElements = driver.findElements(By.tagName("iframe"));
-		// System.out.println("The total number of iframes are " + iframeElements.size());
 
 		// Walk through all available iframes to verify whether cookie accept popup is present
 		System.out.println("All available iframes");

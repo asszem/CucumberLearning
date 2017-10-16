@@ -6,10 +6,10 @@ Background: List all steps here that are the same for every scenario
 
 @Tag1_CucumberPage	
 Scenario: To check that the Cucumber tutorial main page has loaded 
-	When I navigate to Cucumber Tutorial page 
+	When I click to Cucumber Tutorial page 
 	Then the page title should be visible 
 
 @Tag1_CucumberPage	@Tag2_WebDriverPage
 Scenario: To check that the Java WebDriver tutorial main page has loaded 
-	When I navigate to Java WebDriver page 
+	When I click to Java WebDriver page 
 	Then the page title should be visible 
