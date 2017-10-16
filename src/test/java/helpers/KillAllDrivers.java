@@ -10,7 +10,7 @@ public class KillAllDrivers {
 		try {
 			Process p = Runtime.getRuntime().exec(killChrome);
 			p = Runtime.getRuntime().exec(killFirefox);
-			System.out.println("processes killed");
+			System.out.println("Processes [chromedriver, geckodriverX64] killed");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -19,7 +19,7 @@ public class KillAllDrivers {
 		String killFirefox = "taskkill /im firefox.exe /F";
 		try {
 			Process p = Runtime.getRuntime().exec(killFirefox);
-			System.out.println("Firefox killed");
+			System.out.println("Firefox browsers killed");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

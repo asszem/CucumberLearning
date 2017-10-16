@@ -11,8 +11,11 @@ public class DriverLoader {
 	//This method to be called from Hooks to initialize a driver with @Before annotation
 	public static DriverLoader initializeNewDriver(){
 		//This is the part where the actual driver needs to be decided
-		driver = new FirefoxWebDriver().initializeFirefoxWebDriver();
+
+//		driver = new FirefoxWebDriver().initializeFirefoxWebDriver();
+
 //		driver = new ChromeWebDriver().initializeChromeWebDriver();
+
 		return instance; //Instantiate DriverLoader
 	}
 	
