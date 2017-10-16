@@ -25,6 +25,7 @@ public final class Money {
         this.cents = cents;
     }
     
+    //This is the constructor that accepts the String argument from cucumber and converts to dollars/cents
     public Money(String amount) {
         Pattern pattern = Pattern.compile("^[^\\d]*([\\d]+)\\.([\\d][\\d])$");
         Matcher matcher = pattern.matcher(amount);

@@ -13,9 +13,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import drivers.DriverLoader;
 
-public class CucumberSetupSD {
+public class CucumberSetupSD extends DriverLoader {
 
-	WebDriver driver = DriverLoader.getDriver();
+	// WebDriver driver = DriverLoader.getDriver();
 
 	@Given("^I navigate to TheTestRoom\\.com$")
 	public void i_navigate_to_TheTestRoom_com() throws Throwable {

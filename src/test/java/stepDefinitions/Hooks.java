@@ -14,8 +14,8 @@ public class Hooks {
 
 	@After
 	public void killAllProcessses() {
-		// DriverLoader.closeDriver();
-		helpers.KillAllDrivers.killAllDrivers();
-		helpers.KillAllDrivers.killFirefoxBrowsers();
+		 DriverLoader.closeDriver();
+//		helpers.KillAllDrivers.killAllDrivers();
+//		helpers.KillAllDrivers.killFirefoxBrowsers();
 	}
 }

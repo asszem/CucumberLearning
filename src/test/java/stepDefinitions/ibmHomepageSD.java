@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -16,26 +15,28 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import drivers.ChromeWebDriver;
+import drivers.DriverLoader;
 import drivers.FirefoxWebDriver;
 
-public class IbmHomepageSD {
+public class IbmHomepageSD extends DriverLoader {
 
-	WebDriver driver;
+	// WebDriver driver =DriverLoader.getDriver();
 
 	// TODO create a PageObject for IBM com and move the Driver to there, extend this class to there
 
-	@Given("^I start \"([^\"]*)\"$")
-	public void i_start(String browser) throws Throwable {
-		System.out.println("Starting test with browser " + browser);
-		switch (browser.toLowerCase()) {
-		case "firefox":
-			driver = new FirefoxWebDriver().initializeFirefoxWebDriver();
-			break;
-		case "chrome":
-			driver = new ChromeWebDriver().initializeChromeWebDriver();
-			break;
-		}
-	}
+	// Do not add the browser as a feature step to the test case
+	// @Given("^I start \"([^\"]*)\"$")
+	// public void i_start(String browser) throws Throwable {
+	// System.out.println("Starting test with browser " + browser);
+	// switch (browser.toLowerCase()) {
+	// case "firefox":
+	// driver = new FirefoxWebDriver().initializeFirefoxWebDriver();
+	// break;
+	// case "chrome":
+	// driver = new ChromeWebDriver().initializeChromeWebDriver();
+	// break;
+	// }
+	// }
 
 	@Given("^I open \"([^\"]*)\"$")
 	public void i_open_ibm_com(String url) throws Throwable {
@@ -73,8 +74,8 @@ public class IbmHomepageSD {
 				// Switching back to main page
 				driver.switchTo().defaultContent();
 			}
-		}//end iframe for-each
-	}//end test
+		} // end iframe for-each
+	}// end test
 
 	@Given("^I click on Marketplace button$")
 	public void i_click_on_Marketplace_button() throws Throwable {
