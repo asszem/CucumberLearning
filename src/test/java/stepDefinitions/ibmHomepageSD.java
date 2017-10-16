@@ -43,7 +43,7 @@ public class ibmHomepageSD {
 	}
 
 	// Warnings are in an iframe that needs to be handled
-	//http://toolsqa.com/selenium-webdriver/handling-iframes-using-selenium-webdriver/
+	// http://toolsqa.com/selenium-webdriver/handling-iframes-using-selenium-webdriver/
 	@Given("^I accept the cookie warning$")
 	public void i_accept_the_cookie_warning() throws Throwable {
 		System.out.println("Cookie warning step started...");
@@ -52,27 +52,36 @@ public class ibmHomepageSD {
 		// By executing a java script
 		JavascriptExecutor exe = (JavascriptExecutor) driver;
 		Integer numberOfFrames = Integer.parseInt(exe.executeScript("return window.length").toString());
-//		System.out.println("Number of iframes on the page are " + numberOfFrames);
+		// System.out.println("Number of iframes on the page are " + numberOfFrames);
 
 		// By finding all the web elements using iframe tag
 		List<WebElement> iframeElements = driver.findElements(By.tagName("iframe"));
-//		System.out.println("The total number of iframes are " + iframeElements.size());
-		
-		String iframeIDstring="pop-frame09112811852654618";
-		WebElement iframeID = driver.findElement(By.id(iframeIDstring));
-		System.out.println("Switching to iframe" + iframeID);
-		driver.switchTo().frame(iframeID);
-		
-		//Finding and clicking the Accept button
-		 String xPath = "/html/body/div[8]/div[1]/div/div[4]/a[1]";
-		 WebElement element = driver.findElement(By.xpath(xPath));
-		 element.click();
-		 
-		 System.out.println("Switching back to main page");
-		//Switching back to main page
-		driver.switchTo().defaultContent();
-		
-	}
+		// System.out.println("The total number of iframes are " + iframeElements.size());
+
+		// Walk through all available iframes to verify whether cookie accept popup is present
+		System.out.println("All available iframes");
+		for (WebElement element : iframeElements) {
+			String currentIframeID = element.getAttribute("id");
+			System.out.println("iframe ID:  " + currentIframeID);
+
+			// Only execute this step if the iframe with cookie warning is presented
+			String cookieAcceptiframeID = "pop-frame09112811852654618";
+			if (currentIframeID.equals(cookieAcceptiframeID)) {
+				WebElement iframeID = driver.findElement(By.id(currentIframeID));
+				System.out.println("Switching to iframe" + iframeID);
+				driver.switchTo().frame(iframeID);
+
+				// Finding and clicking the Accept button
+				String xPath = "/html/body/div[8]/div[1]/div/div[4]/a[1]";
+				WebElement acceptButton = driver.findElement(By.xpath(xPath));
+				acceptButton.click();
+				System.out.println("Switching back to main page");
+
+				// Switching back to main page
+				driver.switchTo().defaultContent();
+			}
+		}//end iframe for-each
+	}//end test
 
 	@Given("^I click on Marketplace button$")
 	public void i_click_on_Marketplace_button() throws Throwable {

@@ -31,6 +31,9 @@ public class cucumberSetup {
 		System.out.println("Checking page title");
 		System.out.println(driver.getTitle());
 //		driver.close();
+		// Killing the processes
+		helpers.KillAllDrivers.killAllDrivers();
+		helpers.KillAllDrivers.killFirefoxBrowsers();
 	}
 	
 	@When("^I navigate to Java WebDriver page$")
