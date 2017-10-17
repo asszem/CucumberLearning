@@ -14,7 +14,7 @@ import cucumber.api.junit.Cucumber;
 		monochrome = true,
 		dryRun = true,
 		snippets = SnippetType.CAMELCASE,
-		tags = {"@HappyPath"}
+		tags = {"@SingleAccount"}
 		)
 public class DryRun {
 }

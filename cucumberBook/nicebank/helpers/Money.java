@@ -80,6 +80,8 @@ public final class Money {
         return equal;
     }
     
+    //TODO implement a compare method to be able to compare two Money classes
+    
     @Override 
     public String toString() {
         return String.format("$%01d.%02d", this.dollars(), this.cents());

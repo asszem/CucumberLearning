@@ -17,4 +17,8 @@ public class CashSlot {
 		atmBalance=amount;
 	}
 
+	public Money getATMBalance(){
+		return atmBalance;
+	}
+
 }

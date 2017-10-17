@@ -22,7 +22,7 @@ public class AccountSteps {
 		Assert.assertEquals("Incorrect account balance - ", amount, helper.getMyAccount().getBalance());
 	}
 	
-	@Then("^my account balance should be updated to (\\$\\d+\\.\\d+)$")
+	@Then("^my account balance should be equal to (\\$\\d+\\.\\d+)$")
 	public void myAccountBalanceShouldBeUpdatedTo$(@Transform(MoneyConverter.class) Money expectedBalance) throws Throwable {
 		Money actualBalance=helper.getMyAccount().getBalance();
 		Assert.assertEquals("New balance is not correct - ", expectedBalance, actualBalance);

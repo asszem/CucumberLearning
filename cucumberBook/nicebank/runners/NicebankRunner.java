@@ -13,8 +13,9 @@ import cucumber.api.junit.Cucumber;
 		features = "C:/githubIBM/CucumberLearning/cucumberBook/nicebank/resources/features",
 		monochrome = true,
 		dryRun = false,
-		snippets = SnippetType.CAMELCASE,
-		tags = {"@HappyPath"}
+//		tags = {"@HappyPath"},
+		tags = {"@UnhappyPath"},
+		snippets = SnippetType.CAMELCASE
 		)
 public class NicebankRunner {
 
