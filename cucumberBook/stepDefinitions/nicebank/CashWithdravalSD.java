@@ -12,11 +12,22 @@ import helpers.MoneyConverter;
 
 public class CashWithdravalSD {
 
+	// do not use instance variables defined in step definiton
+	// private Account myAccount; //Must be an instance variable to be available for each test steps
+
+	// Use helper class
+	KnowsMyDomain helper; // An instance variable for the step definition
+
+	// Constructor to instantiate helper
+	public CashWithdravalSD() {
+		helper = new KnowsMyDomain();
+	}
+
 	class Account {
 		private Money balance = new Money();
 
 		public void deposit(Money amount) {
-			balance=balance.add(amount);
+			balance = balance.add(amount);
 		}
 
 		public Money getBalance() {
@@ -25,36 +36,66 @@ public class CashWithdravalSD {
 		}
 	}
 
+	// Class that manages withdrawal from account
 	class Teller {
-		public void withdrawFrom(Account account, int amount){
-			
+		public void withdrawFrom(Account account, int amount) {
+
 		}
 	}
 
+	// Class that manages the ATM machine's clash slot behaviour
+	class CashSlot {
 
-	//Use two capture groups
-	//@Given("^I have deposited \\$(\\d+)\\.(\\d+) in my account$")
+		public Money getSlotContents() { // return the content (the actual money being in the cash slot of the machine)
+			return null;
+		}
+	}
 
-	//Use only one capture group for $100.10
-	//	@Given("^I have deposited \\$(\\d+\\.\\d+) in my account$")		//The capture group will be converted to a Money object!
-	
-	//Use the @Transform annotation and move the $ sign inside the capture group
-	@Given("^I have deposited (\\$\\d+\\.\\d+) in my account$")		
+	// Helper class
+	class KnowsMyDomain {
+		private Account myAccount;
+		private CashSlot cashSlot;
+
+		public Account getMyAccount() { // To avoid returning null account
+			if (myAccount == null) {
+				myAccount = new Account();
+			}
+			return myAccount;
+		}
+
+		public CashSlot getCashSlot() {
+			if (cashSlot == null) {
+				cashSlot = new CashSlot();
+			}
+			return cashSlot;
+		}
+	}
+
+	// Use two capture groups
+	// @Given("^I have deposited \\$(\\d+)\\.(\\d+) in my account$")
+
+	// Use only one capture group for $100.10
+	// @Given("^I have deposited \\$(\\d+\\.\\d+) in my account$") //The capture group will be converted to a Money object!
+
+	// Use the @Transform annotation and move the $ sign inside the capture group
+	@Given("^I have deposited (\\$\\d+\\.\\d+) in my account$")
 	public void i_have_deposited_$_in_my_account(@Transform(MoneyConverter.class) Money amount) throws Throwable {
-		Account myAccount = new Account();
-		myAccount.deposit(amount);
-		Assert.assertEquals("Incorrect account balance - ", amount, myAccount.getBalance());
+
+		// Avoid instantiating account inside a step. Use the helper class instead
+		// myAccount = new Account();
+		// myAccount.deposit(amount);
+		helper.getMyAccount().deposit(amount); // The helper account makes sure if myAccount is null, it will be created
+		Assert.assertEquals("Incorrect account balance - ", amount, helper.getMyAccount().getBalance());
 	}
 
 	@When("^I withdraw \\$(\\d+)$")
 	public void i_request_$(int amount) throws Throwable {
 		Teller teller = new Teller();
-//		teller.withdrawFrom(myAccount, amount);
+		teller.withdrawFrom(helper.getMyAccount(), amount);
 	}
 
 	@Then("^\\$(\\d+) should be dispensed$")
-	public void $_should_be_dispensed(int arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+	public void $_should_be_dispensed(int dispensedAmount) throws Throwable {
+		Assert.assertEquals("Incorrect amount dispensed - ", dispensedAmount, helper.getCashSlot().getSlotContents());
 	}
 }

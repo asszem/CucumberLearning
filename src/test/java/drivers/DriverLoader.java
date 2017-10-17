@@ -12,7 +12,7 @@ public class DriverLoader {
 	public static DriverLoader initializeNewDriver() {
 		// This is the part where the actual driver needs to be decided
 
-		driver = new FirefoxWebDriver().initializeFirefoxWebDriver();
+		// driver = new FirefoxWebDriver().initializeFirefoxWebDriver();
 
 		// driver = new ChromeWebDriver().initializeChromeWebDriver();
 
