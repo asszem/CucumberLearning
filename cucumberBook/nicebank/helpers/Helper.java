@@ -19,9 +19,9 @@ public class Helper {
 		return cashSlot;
 	}
 
-	public Teller getTeller(CashSlot cashSlot) {
+	public Teller getTeller(CashSlot cashSlot, Account account) {
 		if (teller == null) {
-			teller = new Teller(cashSlot);
+			teller = new Teller(cashSlot, account);
 		}
 		return teller;
 	}

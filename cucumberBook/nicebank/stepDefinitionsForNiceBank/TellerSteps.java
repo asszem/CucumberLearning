@@ -15,6 +15,6 @@ public class TellerSteps {
 
 	@When("^I withdraw (\\$\\d+\\.\\d+)$")
 	public void i_request_$(@Transform(MoneyConverter.class) Money amount) throws Throwable {
-		helper.getTeller(helper.getCashSlot()).withdrawFrom(helper.getMyAccount(), amount);
+		helper.getTeller(helper.getCashSlot(), helper.getMyAccount()).withdrawFrom(helper.getMyAccount(), amount);
 	}
 }

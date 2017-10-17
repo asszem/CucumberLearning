@@ -7,8 +7,12 @@ public class Account {
 		balance = balance.add(amount);
 	}
 
+	public void withdraw(Money amount) {
+		balance = balance.minus(amount);
+	}
+
 	public Money getBalance() {
-		System.out.println("Account balance:\n" + balance);
+		// System.out.println("Account balance:\n" + balance);
 		return balance;
 	}
 
