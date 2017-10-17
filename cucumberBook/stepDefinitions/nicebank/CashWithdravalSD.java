@@ -36,18 +36,32 @@ public class CashWithdravalSD {
 		}
 	}
 
-	// Class that manages withdrawal from account
+	// Class that manages withdrawal from account. Also manages the ClashSlot
 	class Teller {
-		public void withdrawFrom(Account account, int amount) {
 
+		private CashSlot cashSlot;
+
+		// Constructor
+		public Teller(CashSlot cashSlot) {
+			this.cashSlot = cashSlot;
+		}
+
+		public void withdrawFrom(Account account, Money amount) {
+			cashSlot.dispense(amount);
 		}
 	}
 
 	// Class that manages the ATM machine's clash slot behaviour
 	class CashSlot {
+		private Money inSlotContent;
 
 		public Money getSlotContents() { // return the content (the actual money being in the cash slot of the machine)
-			return null;
+			return inSlotContent;
+		}
+
+		public Money dispense(Money amount) {
+			inSlotContent=amount;
+			return amount;
 		}
 	}
 
@@ -55,6 +69,7 @@ public class CashWithdravalSD {
 	class KnowsMyDomain {
 		private Account myAccount;
 		private CashSlot cashSlot;
+		private Teller teller;
 
 		public Account getMyAccount() { // To avoid returning null account
 			if (myAccount == null) {
@@ -68,6 +83,13 @@ public class CashWithdravalSD {
 				cashSlot = new CashSlot();
 			}
 			return cashSlot;
+		}
+		
+		public Teller getTeller(CashSlot cashSlot){
+			if (teller==null){
+				teller=new Teller(cashSlot);
+			}
+			return teller;
 		}
 	}
 
@@ -88,14 +110,13 @@ public class CashWithdravalSD {
 		Assert.assertEquals("Incorrect account balance - ", amount, helper.getMyAccount().getBalance());
 	}
 
-	@When("^I withdraw \\$(\\d+)$")
-	public void i_request_$(int amount) throws Throwable {
-		Teller teller = new Teller();
-		teller.withdrawFrom(helper.getMyAccount(), amount);
+	@When("^I withdraw (\\$\\d+\\.\\d+)$")
+	public void i_request_$(@Transform(MoneyConverter.class) Money amount) throws Throwable {
+		helper.getTeller(helper.getCashSlot()).withdrawFrom(helper.getMyAccount(), amount);
 	}
 
-	@Then("^\\$(\\d+) should be dispensed$")
-	public void $_should_be_dispensed(int dispensedAmount) throws Throwable {
+	@Then("^(\\$\\d+\\.\\d+) should be dispensed$")
+	public void $_should_be_dispensed(@Transform(MoneyConverter.class) Money dispensedAmount) throws Throwable {
 		Assert.assertEquals("Incorrect amount dispensed - ", dispensedAmount, helper.getCashSlot().getSlotContents());
 	}
 }
