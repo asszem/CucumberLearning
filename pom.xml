@@ -9,6 +9,8 @@
 		<cucumber.core.version>1.2.5</cucumber.core.version>
 		<cucumber.java.version>1.2.5</cucumber.java.version>
 		<cucumber.junit.version>1.2.5</cucumber.junit.version>
+		<cucumber.picocontainer.version>1.2.5</cucumber.picocontainer.version>
+		<picocontainer.version>2.15</picocontainer.version>
 		<gherkin.version>2.12.2</gherkin.version>
 		<selenium.version>3.6.0</selenium.version>
 		<!-- Set the compiler to use java 1.7 so that strings can be switch parameter -->
@@ -63,5 +65,21 @@
 			<!-- https://stackoverflow.com/questions/26975818/what-is-scope-under-dependency-in-pom-xml-for -->
 			<scope>test</scope>
 		</dependency>
+		<!-- PICOCONTAINER (Dependency Injection for Cucumber) -->
+		<!-- https://mvnrepository.com/artifact/info.cukes/cucumber-picocontainer -->
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<version>${cucumber.picocontainer.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.picocontainer/picocontainer -->
+		<dependency>
+			<groupId>org.picocontainer</groupId>
+			<artifactId>picocontainer</artifactId>
+			<version>${picocontainer.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 </project>

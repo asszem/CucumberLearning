@@ -9,13 +9,13 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		format = { "pretty", "html:target/cucumber-html-report", },
-		glue = {"nicebank.stepDefinition" }, 
+		glue = {"nicebank.stepDefinitionsForNiceBank" }, 
 		features = "C:/githubIBM/CucumberLearning/cucumberBook/nicebank/resources/features",
 		monochrome = true,
 		dryRun = false,
 		snippets = SnippetType.CAMELCASE,
 		tags = {"@NicebankTag1","@NicebankTag2"}
 		)
-public class Nicebank {
+public class NicebankRunner {
 
 }
