@@ -10,6 +10,8 @@ public class Teller {
 	}
 
 	public void withdrawFrom(Account account, Money amount) {
+		//Validate whether account has sufficient balance 
+		//Validate whether the Cashslot has enough money to dispense
 		cashSlot.dispense(amount);
 	}
 
