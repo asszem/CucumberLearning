@@ -1,9 +1,9 @@
 @SingleAccount
 Feature: Cash Withdrawal 
 
-@HappyPath, @WIP
+@HappyPath @WIP @SeparateTagsWithSpace
 Scenario Outline: Successful withdrawal from an account in credit 
-	Given I have deposited $<initialBalance> in my account 
+	Given my account has been credited with $<initialBalance>
 	And ATM has sufficient money to dispose
 	When I withdraw $<withdrawnMoney>
 	Then $<withdrawnMoney> should be dispensed 
@@ -16,7 +16,7 @@ Scenario Outline: Successful withdrawal from an account in credit
 
 @UnhappyPath
 Scenario Outline: Unsuccessful withdrawal from an account due to insufficient account balance 
-	Given I have deposited $<initialBalance> in my account 
+	Given my account has been credited with $<initialBalance>
 	And ATM has sufficient money to dispose
 	When I withdraw $<withdrawnMoney> 
 	Then "<errorMessage>" message should be displayed
@@ -27,7 +27,7 @@ Scenario Outline: Unsuccessful withdrawal from an account due to insufficient ac
 
 @UnhappyPath
 Scenario Outline: Unsuccessful withdrawal from an account due to insufficient money in ATM machine
-	Given I have deposited $<initialBalance> in my account 
+	Given my account has been credited with $<initialBalance>
 	And ATM does not have sufficient money to dispose
 	When I withdraw $<withdrawnMoney> 
 	Then "<errorMessage>" message should be displayed

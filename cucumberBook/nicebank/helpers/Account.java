@@ -3,11 +3,13 @@ package nicebank.helpers;
 public class Account {
 	private Money balance = new Money();
 
-	public void deposit(Money amount) {
+	//Add money to Account
+	public void credit(Money amount) {
 		balance = balance.add(amount);
 	}
 
-	public void withdraw(Money amount) {
+	//Withdraw money from Account
+	public void debit(Money amount) {
 		balance = balance.minus(amount);
 	}
 

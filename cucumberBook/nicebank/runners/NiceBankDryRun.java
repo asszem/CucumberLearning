@@ -12,12 +12,9 @@ import cucumber.api.junit.Cucumber;
 		glue = {"nicebank.stepDefinitionsForNiceBank" }, 
 		features = "C:/githubIBM/CucumberLearning/cucumberBook/nicebank/resources/features",
 		monochrome = true,
-		dryRun = false,
-//		tags = {"@HappyPath"},
-//		tags = {"@UnhappyPath"},
-//		tags = {"@WIP"},
-		snippets = SnippetType.CAMELCASE
+		dryRun = true,
+		snippets = SnippetType.CAMELCASE,
+		tags = {"@SingleAccount"}
 		)
-public class NicebankRunner {
-
+public class NiceBankDryRun {
 }

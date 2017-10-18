@@ -31,7 +31,7 @@ public class Teller {
 		
 		// When this is reached, the withdrawal request is valid. Now the money should be put in to the ATM and removed from Account
 		cashSlotHandledByTeller.dispense(amount);
-		account.withdraw(amount);
+		account.debit(amount);
 		msg = "Successfull withdrawal";
 		return msg;
 	}
