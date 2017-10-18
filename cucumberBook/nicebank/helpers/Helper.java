@@ -1,6 +1,8 @@
 package nicebank.helpers;
 
 import nicebank.code.Account;
+import nicebank.code.AtmUserInterface;
+import nicebank.code.AutomatedTeller;
 import nicebank.code.CashSlot;
 import nicebank.code.Teller;
 
@@ -25,7 +27,10 @@ public class Helper {
 
 	public Teller getTeller(CashSlot cashSlot, Account account) {
 		if (teller == null) {
-			teller = new Teller(cashSlot, account);
+			
+			// If we want the automated teller
+//			teller = new AutomatedTeller(cashSlot, account);
+			teller = new AtmUserInterface(cashSlot, account);
 		}
 		return teller;
 	}

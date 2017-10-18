@@ -7,6 +7,7 @@ import cucumber.api.java.en.When;
 import nicebank.code.Account;
 import nicebank.code.CashSlot;
 import nicebank.code.Teller;
+import nicebank.code.AutomatedTeller;
 import nicebank.helpers.Helper;
 import nicebank.helpers.Money;
 import nicebank.helpers.MoneyConverter;
