@@ -4,12 +4,12 @@ import org.junit.Assert;
 
 import cucumber.api.Transform;
 import cucumber.api.java.en.When;
-import nicebank.helpers.Account;
-import nicebank.helpers.CashSlot;
+import nicebank.code.Account;
+import nicebank.code.CashSlot;
+import nicebank.code.Teller;
 import nicebank.helpers.Helper;
 import nicebank.helpers.Money;
 import nicebank.helpers.MoneyConverter;
-import nicebank.helpers.Teller;
 
 public class TellerSteps {
 	Helper helper;

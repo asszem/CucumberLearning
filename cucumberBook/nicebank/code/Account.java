@@ -1,4 +1,6 @@
-package nicebank.helpers;
+package nicebank.code;
+
+import nicebank.helpers.Money;
 
 public class Account {
 	private Money balance = new Money();

@@ -5,7 +5,7 @@ import org.junit.Assert;
 import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import nicebank.helpers.CashSlot;
+import nicebank.code.CashSlot;
 import nicebank.helpers.Helper;
 import nicebank.helpers.Money;
 import nicebank.helpers.MoneyConverter;

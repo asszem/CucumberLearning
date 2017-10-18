@@ -1,5 +1,9 @@
 package nicebank.helpers;
 
+import nicebank.code.Account;
+import nicebank.code.CashSlot;
+import nicebank.code.Teller;
+
 public class Helper {
 	private Account myAccount;
 	private CashSlot cashSlot;
