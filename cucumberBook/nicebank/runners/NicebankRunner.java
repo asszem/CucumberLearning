@@ -14,7 +14,8 @@ import cucumber.api.junit.Cucumber;
 		monochrome = true,
 		dryRun = false,
 //		tags = {"@HappyPath"},
-		tags = {"@UnhappyPath"},
+//		tags = {"@UnhappyPath"},
+//		tags = {"@WIP"},
 		snippets = SnippetType.CAMELCASE
 		)
 public class NicebankRunner {

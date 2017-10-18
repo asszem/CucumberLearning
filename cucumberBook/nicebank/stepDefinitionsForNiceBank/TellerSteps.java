@@ -24,6 +24,8 @@ public class TellerSteps {
 		Account account = helper.getMyAccount();
 		Teller teller = helper.getTeller(cashSlot, account);
 		String resultMsg=teller.withdrawFrom(account, amount);
+		Money dispensedMoney = cashSlot.getSlotContents();
+		cashSlot.setMessage(resultMsg);
 		//There is no validation at this step
 	}
 }

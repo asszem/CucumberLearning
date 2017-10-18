@@ -2,19 +2,19 @@ package nicebank.helpers;
 
 public class Teller {
 
-	private CashSlot cashSlot;
+	private CashSlot cashSlotHandledByTeller;
 	private Account account;
 
 	// Constructor
 	public Teller(CashSlot cashSlot, Account account) {
-		this.cashSlot = cashSlot;
+		this.cashSlotHandledByTeller = cashSlot;
 		this.account = account; // The teller must know about the account it handles
 	}
 
 	public String withdrawFrom(Account account, Money amount) {
 		Double clientBalance = convertToDouble(account.getBalance());
 		Double requestedWithdrawal = convertToDouble(amount);
-		Double atmBalance = convertToDouble(cashSlot.getATMBalance());
+		Double atmBalance = convertToDouble(cashSlotHandledByTeller.getATMBalance());  //The Teller must know about the CashSlot that is being used
 		String msg;
 
 		// Validate whether account has sufficient balance
@@ -28,8 +28,9 @@ public class Teller {
 			msg = "Error: ATM does not have enough money	";
 			return msg;
 		}
-
-		cashSlot.dispense(amount);
+		
+		// When this is reached, the withdrawal request is valid. Now the money should be put in to the ATM and removed from Account
+		cashSlotHandledByTeller.dispense(amount);
 		account.withdraw(amount);
 		msg = "Successfull withdrawal";
 		return msg;
