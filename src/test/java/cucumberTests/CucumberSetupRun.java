@@ -8,7 +8,9 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
         format = { "pretty" },
         features = { "src/test/resources/WebUITests" },
-        glue = { "stepDefinitions" }
+        glue = { "stepDefinitions" },
+        monochrome=true,
+        dryRun=true
 //        tags = { "@smoke" },
 //        plugin = { "json:target/Reports/SmokeTest.json", "html:target/Reports/SmokeTestReport.html"}
 )
