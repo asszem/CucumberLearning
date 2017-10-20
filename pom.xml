@@ -57,6 +57,14 @@
 			<artifactId>selenium-java</artifactId>
 			<version>${selenium.version}</version>
 		</dependency>
+		<!-- ENABLING THE SELENIUM SERVER WILL CAUSE THE SELECTOR ERROR IN JETTY -->
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.seleniumhq.selenium</groupId> -->
+<!-- 			<artifactId>selenium-server</artifactId> -->
+<!-- 			<version>${selenium.version}</version> -->
+<!-- 		</dependency> -->
+
 		<!-- JUNIT -->
 		<dependency>
 			<groupId>junit</groupId>
