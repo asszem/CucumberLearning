@@ -2,12 +2,12 @@ package nicebank.helpers;
 
 import nicebank.code.Account;
 import nicebank.code.CashSlot;
-import nicebank.code.Teller;
+import nicebank.code.AutomatedTeller;
 
 public class Helper {
 	private Account myAccount;
 	private CashSlot cashSlot;
-	private Teller teller;
+	private AutomatedTeller teller;
 
 	public Account getMyAccount() { // To avoid returning null account
 		if (myAccount == null) {
@@ -23,9 +23,9 @@ public class Helper {
 		return cashSlot;
 	}
 
-	public Teller getTeller(CashSlot cashSlot, Account account) {
+	public AutomatedTeller getTeller(CashSlot cashSlot, Account account) {
 		if (teller == null) {
-			teller = new Teller(cashSlot, account);
+			teller = new AutomatedTeller(cashSlot, account);
 		}
 		return teller;
 	}
