@@ -1,7 +1,5 @@
 package nicebank.stepDefinitionsForNiceBank;
 
-import org.junit.Assert;
-
 import cucumber.api.Transform;
 import cucumber.api.java.en.When;
 import nicebank.code.Account;
