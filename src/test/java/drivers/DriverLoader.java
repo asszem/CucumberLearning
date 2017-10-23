@@ -14,7 +14,7 @@ public class DriverLoader {
 
 		// driver = new FirefoxWebDriver().initializeFirefoxWebDriver();
 
-		// driver = new ChromeWebDriver().initializeChromeWebDriver();
+		 driver = new ChromeWebDriver().initializeChromeWebDriver();
 
 		return instance; // Instantiate DriverLoader
 	}

@@ -17,6 +17,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class FirefoxWebDriver {
 
 	// TODO export these to an external config file and read it here
+	private static String OS = System.getProperty("os.name").toLowerCase();
 	long impliciteTimeout = 10;
 	long pageLoadTimeout = 15;
 	TimeUnit timeUnit = TimeUnit.SECONDS;
@@ -36,7 +37,16 @@ public class FirefoxWebDriver {
 //		capabilities.setCapability("moz:firefoxOptions: {log: {level: info}}");
 
 
-		System.setProperty("webdriver.gecko.driver", "C:\\webdrivers\\geckodriverX64.exe");
+		System.out.println("OS detected: " + OS);
+		if (OS.contains("mac")) {
+			// System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chrome/osx/chromedriver");
+			// options.addArguments("--kiosk");
+		} else if (OS.contains("windows")) {
+			System.setProperty("webdriver.gecko.driver", "C:\\webdrivers\\geckodriverX64.exe");
+			options.addArguments("--start-fullscreen");
+		} else if (OS.contains("linux")) {
+			System.setProperty("webdriver.gecko.driver", "/home/andras/webdrivers/geckodriver");
+		}
 
 		WebDriver driver = new FirefoxDriver(options);
 		driver.manage().deleteAllCookies();

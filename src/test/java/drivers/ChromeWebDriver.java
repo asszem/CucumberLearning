@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class ChromeWebDriver {
 
 	// TODO export these to an external config file and read it here
+	private static String OS = System.getProperty("os.name").toLowerCase();
 	long impliciteTimeout = 10;
 	long pageLoadTimeout = 15;
 	TimeUnit timeUnit = TimeUnit.SECONDS;
@@ -20,7 +21,16 @@ public class ChromeWebDriver {
 
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		// capabilities.setCapability("marionette", marionette);
-		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver.exe");
+
+		System.out.println("OS detected: " + OS);
+		if (OS.contains("mac")) {
+			// System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chrome/osx/chromedriver");
+			// options.addArguments("--kiosk");
+		} else if (OS.contains("windows")) {
+			System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver.exe");
+		} else if (OS.contains("linux")) {
+			System.setProperty("webdriver.chrome.driver", "/home/andras/webdrivers/chromedriver");
+		}
 		WebDriver driver = new ChromeDriver();
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait(impliciteTimeout, timeUnit);

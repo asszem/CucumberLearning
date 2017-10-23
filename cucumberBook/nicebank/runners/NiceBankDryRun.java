@@ -10,7 +10,8 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		format = { "pretty", "html:target/cucumber-html-report", },
 		glue = {"nicebank.stepDefinitionsForNiceBank" }, 
-		features = "C:/at/CucumberLearning/cucumberBook/nicebank/resources/features",
+		features = "cucumberBook/nicebank/resources/features",
+//		features = "C:/at/CucumberLearning/cucumberBook/nicebank/resources/features",
 		monochrome = true,
 		dryRun = true,
 		snippets = SnippetType.CAMELCASE,
