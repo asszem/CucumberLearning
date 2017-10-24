@@ -1,7 +1,7 @@
 @SingleAccount
 Feature: Cash Withdrawal 
 
-@HappyPath @WIP @SeparateTagsWithSpace
+@HappyPath @SeparateTagsWithSpace
 Scenario Outline: Successful withdrawal from an account in credit 
 	Given my account has been credited with $<initialBalance>
 	And ATM has sufficient money to dispose
@@ -14,7 +14,7 @@ Scenario Outline: Successful withdrawal from an account in credit
 	|100.00			| 25.00			 	| 75.00			| Successfull withdrawal |
 #	|50.00			| 5.00			 	| 45.00			| Successfull withdrawal |
 
-@UnhappyPath
+@UnhappyPath @WIP 
 Scenario Outline: Unsuccessful withdrawal from an account due to insufficient account balance 
 	Given my account has been credited with $<initialBalance>
 	And ATM has sufficient money to dispose

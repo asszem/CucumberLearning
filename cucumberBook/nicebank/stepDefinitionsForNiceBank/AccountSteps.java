@@ -3,6 +3,7 @@ package nicebank.stepDefinitionsForNiceBank;
 import org.junit.Assert;
 
 import cucumber.api.Transform;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import nicebank.helpers.Helper;

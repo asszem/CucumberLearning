@@ -3,8 +3,9 @@ package nicebank.code;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
+import nicebank.helpers.Helper;
 import nicebank.helpers.Money;
-import nicebank.helpers.webdrivers.NicebankFirefoxWebDriver;
+import nicebank.hooks.ServerHooks;
 
 public class AtmUserInterface implements Teller {
 
@@ -12,24 +13,26 @@ public class AtmUserInterface implements Teller {
 	private Account accountHandledByAtm;
 	private final EventFiringWebDriver webDriver;
 
-	public AtmUserInterface(CashSlot cashSlot, Account account) {
+	// TODO verify how helper object gets passed to this constructor
+	public AtmUserInterface(CashSlot cashSlot, Account account, Helper helper) {
 		cashSlotInterface = cashSlot;
 		accountHandledByAtm=account;
-		webDriver= new EventFiringWebDriver(new NicebankFirefoxWebDriver().initializeFirefoxWebDriver());
+		webDriver=helper.getWebDriver(); 
 	}
 	
 	@Override
 	public String withdrawFrom(Account account, Money amount) {
 		
 	try {
-	 webDriver.get("http://localhost:9988");	
+	 webDriver.get("http://localhost:"+ServerHooks.PORT);	
 	 webDriver.findElement(By.id("Amount")).sendKeys(amount.toString());
 	 webDriver.findElement(By.id("Withdraw")).click();
 	}
 		finally {
-//			KillAllDrivers.killFirefoxBrowsers();
+//			webDriver.close();
 	}
 		return "ATMUserInterfaceTriedToReturn";
 	}
+
 
 }

@@ -9,7 +9,7 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		format = { "pretty", "html:target/cucumber-html-report", },
-		glue = {"nicebank.stepDefinitionsForNiceBank" }, 
+		glue = {"nicebank.stepDefinitionsForNiceBank", "nicebank.hooks" }, 
 		features = "cucumberBook/nicebank/resources/features",
 //		features = "C:/at/CucumberLearning/cucumberBook/nicebank/resources/features",
 		monochrome = true,
