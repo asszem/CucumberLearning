@@ -10,8 +10,9 @@ import cucumber.api.junit.Cucumber;
         features = { "src/test/resources/WebUITests" },
         glue = { "stepDefinitions" },
         monochrome=true,
-        dryRun=false
-//        tags = { "@smoke" },
+        dryRun=false,
+//        tags = { "@Tag1_CucumberPage"}
+        tags = { "@EntireFeature_tag"}
 //        plugin = { "json:target/Reports/SmokeTest.json", "html:target/Reports/SmokeTestReport.html"}
 )
 public class CucumberSetupRun {

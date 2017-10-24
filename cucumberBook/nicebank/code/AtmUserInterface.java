@@ -3,9 +3,8 @@ package nicebank.code;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
-import helpers.KillAllDrivers;
 import nicebank.helpers.Money;
-import nicebank.helpers.webdrivers.FirefoxWebDriver;
+import nicebank.helpers.webdrivers.NicebankFirefoxWebDriver;
 
 public class AtmUserInterface implements Teller {
 
@@ -16,7 +15,7 @@ public class AtmUserInterface implements Teller {
 	public AtmUserInterface(CashSlot cashSlot, Account account) {
 		cashSlotInterface = cashSlot;
 		accountHandledByAtm=account;
-		webDriver= new EventFiringWebDriver(new FirefoxWebDriver().initializeFirefoxWebDriver());
+		webDriver= new EventFiringWebDriver(new NicebankFirefoxWebDriver().initializeFirefoxWebDriver());
 	}
 	
 	@Override

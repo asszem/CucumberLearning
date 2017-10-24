@@ -23,16 +23,29 @@ public class CucumberSetupSD extends DriverLoader {
 		driver.navigate().to("http://www.thetestroom.com");
 	}
 
+	@Given("^I click on the No Thanks button if newsletter window is displayed$")
+	public void i_click_on_the_No_Thanks_button_if_newsletter_window_is_displayed() throws Throwable {
+		String xpath = "/html/body/div[1]/div/div/div/span/div/div/div/div/div/div/div/div[1]/div/div/div[6]/div/div/button";
+		// Wait until the newsletter appears
+		WebDriverWait waiter = new WebDriverWait(driver, 10); // timeout in seconds
+		// waiter.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+		waiter.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+
+		// Click on the element
+		driver.findElement(By.xpath(xpath)).sendKeys(Keys.ENTER);
+	}
+
 	@When("^I click to Cucumber Tutorial page$")
 	public void i_navigate_to_Cucumber_Tutorial_page() throws Throwable {
 		System.out.println("Clicking on Cucumber Tutorial Page");
-		driver.findElement(By.linkText("Cucumber")).click();
+		driver.findElement(By.linkText("Cucumber")).sendKeys(Keys.ENTER);
 	}
 
-	@Then("^the page title should be visible$")
-	public void the_page_title_should_be_visible_w() throws Throwable {
+	@Then("^the page title should contain \"([^\"]*)\"$")
+	public void the_page_title_should_contain(String expectedTitle) throws Throwable {
+		System.out.println("-----------Validating page title step--------------");
 		System.out.println("Page title is: " + driver.getTitle());
-		Assert.assertTrue(driver.getTitle().contains("Java WebDriver Archives"));
+		Assert.assertTrue(driver.getTitle().contains(expectedTitle));
 	}
 
 	@When("^I click to Java WebDriver page$")
