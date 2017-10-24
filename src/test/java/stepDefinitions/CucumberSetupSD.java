@@ -44,6 +44,10 @@ public class CucumberSetupSD extends DriverLoader {
 	@Then("^the page title should contain \"([^\"]*)\"$")
 	public void the_page_title_should_contain(String expectedTitle) throws Throwable {
 		System.out.println("-----------Validating page title step--------------");
+		WebDriverWait waiter = new WebDriverWait(driver, 10); // timeout in seconds
+
+		// waiter.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+		waiter.until(ExpectedConditions.not(ExpectedConditions.titleContains("The Test Room - ")));
 		System.out.println("Page title is: " + driver.getTitle());
 		Assert.assertTrue(driver.getTitle().contains(expectedTitle));
 	}

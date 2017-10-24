@@ -12,6 +12,7 @@ import cucumber.api.junit.Cucumber;
         monochrome=true,
         dryRun=false,
 //        tags = { "@Tag1_CucumberPage"}
+//        tags = { "@Tag2_WebDriverPage"}
         tags = { "@EntireFeature_tag"}
 //        plugin = { "json:target/Reports/SmokeTest.json", "html:target/Reports/SmokeTestReport.html"}
 )
