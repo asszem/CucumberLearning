@@ -16,23 +16,25 @@ public class AtmUserInterface implements Teller {
 	// TODO verify how helper object gets passed to this constructor
 	public AtmUserInterface(CashSlot cashSlot, Account account, Helper helper) {
 		cashSlotInterface = cashSlot;
-		accountHandledByAtm=account;
-		webDriver=helper.getWebDriver(); 
-	}
-	
-	@Override
-	public String withdrawFrom(Account account, Money amount) {
-		
-	try {
-	 webDriver.get("http://localhost:"+ServerHooks.PORT);	
-	 webDriver.findElement(By.id("Amount")).sendKeys(amount.toString());
-	 webDriver.findElement(By.id("Withdraw")).click();
-	}
-		finally {
-//			webDriver.close();
-	}
-		return "ATMUserInterfaceTriedToReturn";
+		accountHandledByAtm = account;
+		webDriver = helper.getWebDriver();
 	}
 
+	@Override
+	public String withdrawFrom(Account account, Money amount) {
+
+		try {
+			webDriver.get("http://localhost:" + ServerHooks.PORT);
+			webDriver.findElement(By.id("Amount")).sendKeys(amount.toString());
+			webDriver.findElement(By.id("Withdraw")).click();
+		} finally {
+			// webDriver.close();
+		}
+
+		// The return message will be set in the WithdrawalServlet by calling 
+		// The withdrawFrom method of a NEW AutomatedTeller instance
+		// Which will handle the withdrawal and set the message
+		return cashSlotInterface.getMessage();
+	}
 
 }

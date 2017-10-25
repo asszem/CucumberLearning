@@ -22,9 +22,11 @@ public class TellerSteps {
 		CashSlot cashSlot = helper.getCashSlot();
 		Account account = helper.getMyAccount();
 		Teller teller = helper.getTeller(cashSlot, account);
-		String resultMsg=teller.withdrawFrom(account, amount);
-		Money dispensedMoney = cashSlot.getSlotContents();
-		cashSlot.setMessage(resultMsg);
+		teller.withdrawFrom(account, amount);
+//		Money dispensedMoney = cashSlot.getSlotContents();
+		
+		//The cashSlot message is set by the withdrawnFrom method
+//		cashSlot.setMessage(resultMsg);
 		//There is no validation at this step
 	}
 }

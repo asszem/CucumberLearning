@@ -1,6 +1,5 @@
 package nicebank.helpers;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import nicebank.code.Account;
@@ -32,8 +31,9 @@ public class Helper {
 	public Teller getTeller(CashSlot cashSlot, Account account) {
 		if (teller == null) {
 			// If we want the automated teller
-			// teller = new AutomatedTeller(cashSlot, account);
-			teller = new AtmUserInterface(cashSlot, account, this);			//pass this helper object to ATM
+//			 teller = new AutomatedTeller(cashSlot, account);
+			teller = new AtmUserInterface(cashSlot, account, this); // pass this helper
+			// object to ATM
 		}
 		return teller;
 	}

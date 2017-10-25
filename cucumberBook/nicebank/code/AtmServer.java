@@ -8,40 +8,38 @@
 ***/
 package nicebank.code;
 
-
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import nicebank.hooks.ServerHooks;
 
-public class AtmServer
-{
-    private final Server server;
-    
-    public AtmServer(int port) {
-        server = new Server(ServerHooks.PORT);
+public class AtmServer {
+	private final Server server;
 
-        ServletContextHandler context = 
-            new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath("/");
-        server.setHandler(context);
+	public AtmServer(int port, CashSlot cashSlot, Account account) { // Pass the cashSholt and Account info to the
+																		// server
+		server = new Server(ServerHooks.PORT);
 
-        context.addServlet(new ServletHolder(new AtmServlet()),"/*");
-        context.addServlet(new ServletHolder(new WithdrawalServlet()), "/withdraw");
-    }
-    
-    public void start() throws Exception {
-        server.start();
-        System.out.println("ATM Server Started. Listening on " + server.getURI());
-    }
+		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		context.setContextPath("/");
+		server.setHandler(context);
 
-    public void stop() throws Exception {
-        server.stop();
-        System.out.println("ATM Server stopped");
-    }
+		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlot, account)), "/withdraw");
+		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
+	}
 
-    public static void main(String[] args) throws Exception {
-        new AtmServer(ServerHooks.PORT).start();
-    }
+	public void start() throws Exception {
+		server.start();
+		System.out.println("ATM Server Started. Listening on " + server.getURI());
+	}
+
+	public void stop() throws Exception {
+		server.stop();
+		System.out.println("ATM Server stopped");
+	}
+
+	// public static void main(String[] args) throws Exception {
+	// new AtmServer(ServerHooks.PORT, cashSlot, account).start();
+// }
 }
