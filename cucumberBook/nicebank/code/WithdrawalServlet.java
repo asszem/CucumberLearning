@@ -47,11 +47,11 @@ public class WithdrawalServlet extends HttpServlet {
 		response.setContentType("text/html");
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.getWriter().println("<html><head><title>Nice Bank ATM WITHDRAWAL</title></head>"
-				+ "<body>Please take your " + withdrawnAmount.toString() + " Thank you! " 
-						+ "<br>Cashslot message: "				+ cashSlot.getMessage()
+				+ "<body>Requested amount to withdraw: " + withdrawnAmount.toString()  
 						+ "<br>Dispensed amount: " 				+ cashSlot.getSlotContents()
+						+ "<br>Cashslot message: "				+ cashSlot.getMessage()
 						+ "<br>User account balance : " 		+ account.getBalance().toString()
-						+ "<br>helper cashshlot message : " 	+ helper.getCashSlot().getMessage()
+						+ "<br><br>helper cashshlot message : " 	+ helper.getCashSlot().getMessage()
 						+ "<br>helper User account balance : "	+ helper.getMyAccount().getBalance().toString()
 						+ "</body>" + "</html>");
 	}
