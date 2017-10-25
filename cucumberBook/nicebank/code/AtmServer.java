@@ -12,12 +12,13 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import nicebank.helpers.Helper;
 import nicebank.hooks.ServerHooks;
 
 public class AtmServer {
 	private final Server server;
 
-	public AtmServer(int port, CashSlot cashSlot, Account account) { // Pass the cashSholt and Account info to the
+	public AtmServer(int port, Helper helper) { // Pass the cashSholt and Account info to the
 																		// server
 		server = new Server(ServerHooks.PORT);
 
@@ -25,7 +26,7 @@ public class AtmServer {
 		context.setContextPath("/");
 		server.setHandler(context);
 
-		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlot, account)), "/withdraw");
+		context.addServlet(new ServletHolder(new WithdrawalServlet(helper)), "/withdraw");
 		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
 	}
 

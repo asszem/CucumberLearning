@@ -5,12 +5,12 @@ import nicebank.helpers.Money;
 public class AutomatedTeller implements Teller {
 
 	private CashSlot cashSlotHandledByTeller;
-	private Account account;
+	private Account accountHandledByTeller;
 
 	// Constructor
 	public AutomatedTeller(CashSlot cashSlot, Account account) {
 		this.cashSlotHandledByTeller = cashSlot;
-		this.account = account; // The teller must know about the account it handles
+		this.accountHandledByTeller = account; // The teller must know about the account it handles
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class AutomatedTeller implements Teller {
 		// When this is reached, the withdrawal request is valid. Now the money should
 		// be put in to the ATM and removed from Account
 		cashSlotHandledByTeller.dispense(amount);
-		account.debit(amount);
+		accountHandledByTeller.debit(amount);
 		// Set the ATM message
 		msg = "Successfull withdrawal";
 		cashSlotHandledByTeller.setMessage(msg);

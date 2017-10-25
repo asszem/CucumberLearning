@@ -26,10 +26,12 @@ public class WithdrawalServlet extends HttpServlet {
 
 	private CashSlot cashSlot;
 	private Account account;
+	private Helper helper;
 
-	public WithdrawalServlet(CashSlot cashSlot, Account account ) {
-		this.cashSlot = cashSlot;
-		this.account = account;
+	public WithdrawalServlet(Helper helper ) {
+		this.cashSlot = helper.getCashSlot();
+		this.account = helper.getMyAccount();
+		this.helper=helper;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,15 +42,17 @@ public class WithdrawalServlet extends HttpServlet {
 		Money withdrawnAmount = new MoneyConverter().transform(amountEnteredToATM);
 		
 		//The automated teller's withdrawFrom method is called which will do the actual withdrawal
-		automatedTeller.withdrawFrom(account, withdrawnAmount);
+		automatedTeller.withdrawFrom(helper.getMyAccount(), withdrawnAmount);
 
 		response.setContentType("text/html");
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.getWriter().println("<html><head><title>Nice Bank ATM WITHDRAWAL</title></head>"
 				+ "<body>Please take your " + withdrawnAmount.toString() + " Thank you! " 
-						+ "<br>Cashslot message: "+ cashSlot.getMessage()
-						+ "<br>Dispensed amount: " + cashSlot.getSlotContents()
-						+ "<br>User account balance : " + account.getBalance().toString()
+						+ "<br>Cashslot message: "				+ cashSlot.getMessage()
+						+ "<br>Dispensed amount: " 				+ cashSlot.getSlotContents()
+						+ "<br>User account balance : " 		+ account.getBalance().toString()
+						+ "<br>helper cashshlot message : " 	+ helper.getCashSlot().getMessage()
+						+ "<br>helper User account balance : "	+ helper.getMyAccount().getBalance().toString()
 						+ "</body>" + "</html>");
 	}
 }

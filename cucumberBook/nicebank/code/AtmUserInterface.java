@@ -9,15 +9,11 @@ import nicebank.hooks.ServerHooks;
 
 public class AtmUserInterface implements Teller {
 
-	private CashSlot cashSlotInterface;
-	private Account accountHandledByAtm;
 	private final EventFiringWebDriver webDriver;
 
-	// TODO verify how helper object gets passed to this constructor
-	public AtmUserInterface(CashSlot cashSlot, Account account, Helper helper) {
-		cashSlotInterface = cashSlot;
-		accountHandledByAtm = account;
-		webDriver = helper.getWebDriver();
+	// Only the webdriver was passed when the Helper class instantiated this object
+	public AtmUserInterface(EventFiringWebDriver webDriver) {
+		this.webDriver = webDriver;
 	}
 
 	@Override
@@ -34,7 +30,7 @@ public class AtmUserInterface implements Teller {
 		// The return message will be set in the WithdrawalServlet by calling 
 		// The withdrawFrom method of a NEW AutomatedTeller instance
 		// Which will handle the withdrawal and set the message
-		return cashSlotInterface.getMessage();
+		return "AtmUserInterface returned.";
 	}
 
 }
