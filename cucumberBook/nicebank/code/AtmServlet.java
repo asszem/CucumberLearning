@@ -23,10 +23,15 @@ public class AtmServlet extends HttpServlet
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().println(
         "<html><head><title>ATM</title></head>" +
-        "<body><form action=\"/withdraw\" method=\"post\">" +
+        "<body>"
+        + "<form action=\"/withdraw\" method=\"post\">" +
         "<label for=\"amount\">Amount</label>" +
         "<input type=\"text\" id=\"amount\" name=\"amount\">" +
         "<button type=\"submit\" id=\"withdraw\">Withdraw</button>" +
+        "<button type=\"submit\" id=\"withdrawFixed\" fixedvalue=\"$25.00\">Withdraw $25.00</button>" +
+       "</form>"+
+        "<form action=\"displayBalance\" method=\"post\">"+
+        "<button type=\"submit\" id=\"displayBalance\" >Display your balance</button>" +
         "</form></body></html>");
 
     }

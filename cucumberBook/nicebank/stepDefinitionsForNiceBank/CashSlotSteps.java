@@ -2,10 +2,14 @@ package nicebank.stepDefinitionsForNiceBank;
 
 import org.junit.Assert;
 
+import cucumber.api.PendingException;
 import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import nicebank.code.Account;
 import nicebank.code.CashSlot;
+import nicebank.code.Teller;
 import nicebank.helpers.Helper;
 import nicebank.helpers.Money;
 import nicebank.helpers.MoneyConverter;
@@ -40,4 +44,20 @@ public class CashSlotSteps {
 		String actualMsg = cashSlot.getMessage();
 		Assert.assertEquals("ATM message is not correct - ", expectedMSG.trim(), actualMsg.trim());
 	}
+
+	@When("^I click on the Display Balance button$")
+	public void iClickOnTheDisplayBalanceButton() throws Throwable {
+		CashSlot cashSlot = helper.getCashSlot();
+		Account account = helper.getMyAccount();
+		Teller teller = helper.getTeller(cashSlot, account);
+		teller.displayBalance(account);
+	}
+
+	@Then("^My account balance of (\\$\\d+\\.\\d+) should be displayed$")
+	public void myAccountBalanceOf$ShouldBeDisplayed(@Transform(MoneyConverter.class) Money expectedBalance) throws Throwable {
+		String expectedBalanceMsg = "User balance is: " + expectedBalance.toString().trim();
+		String actualBalanceMsg = helper.getCashSlot().getMessage().trim();
+		Assert.assertEquals("ATM Balance msg is not correct - ", expectedBalanceMsg, actualBalanceMsg);
+	}
+
 }

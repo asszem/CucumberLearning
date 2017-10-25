@@ -26,8 +26,9 @@ public class AtmServer {
 		context.setContextPath("/");
 		server.setHandler(context);
 
-		context.addServlet(new ServletHolder(new WithdrawalServlet(helper)), "/withdraw");
 		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
+		context.addServlet(new ServletHolder(new WithdrawalServlet(helper)), "/withdraw");
+		context.addServlet(new ServletHolder(new DisplayBalanceServlet(helper)), "/displayBalance");
 	}
 
 	public void start() throws Exception {

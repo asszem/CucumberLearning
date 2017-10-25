@@ -12,10 +12,10 @@ Scenario Outline: Successful withdrawal from an account in credit
 	Examples:
 	|initialBalance	| withdrawnMoney	| newBalance 	| successMessage |
 	|100.00			| 25.00			 	| 75.00			| Successfull withdrawal |
-	|50.00			| 5.00			 	| 45.00			| Successfull withdrawal |
-	|22.00			| 2.00			 	| 20.00			| Successfull withdrawal |
+#	|50.00			| 5.00			 	| 45.00			| Successfull withdrawal |
+#	|22.00			| 2.00			 	| 20.00			| Successfull withdrawal |
 
-@UnhappyPath @WIP
+@UnhappyPath 
 Scenario Outline: Unsuccessful withdrawal from an account due to insufficient account balance 
 	Given my account has been credited with $<initialBalance>
 	And ATM has sufficient money to dispose

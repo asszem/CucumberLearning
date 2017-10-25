@@ -23,7 +23,13 @@ public class AtmUserInterface implements Teller {
 		try {
 			webDriver.get("http://localhost:" + ServerHooks.PORT);
 			webDriver.findElement(By.id("Amount")).sendKeys(amount.toString());
-			webDriver.findElement(By.id("Withdraw")).click();
+//			webDriver.findElement(By.id("Withdraw")).click();
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			webDriver.findElement(By.id("WithdrawFixed")).click();
 
 			// Wait until the ATM user interface loaded before continuing to next step
 
@@ -38,6 +44,18 @@ public class AtmUserInterface implements Teller {
 		// The withdrawFrom method of a NEW AutomatedTeller instance
 		// Which will handle the withdrawal and set the message
 		return "AtmUserInterface returned.";
+	}
+	
+	@Override
+	public String displayBalance(Account account) {
+			webDriver.get("http://localhost:" + ServerHooks.PORT);
+			webDriver.findElement(By.id("displayBalance")).click();
+			WebDriverWait waiter = new WebDriverWait(webDriver, 5); // timeout in seconds
+			waiter.until(ExpectedConditions.titleContains("Nice Bank ATM Display Balance"));
+			System.out.println("...waiter finished waiting, ATM Display Balance title found");
+			
+			//The return message for the correct display balance must be set in the DisplayBalance interface
+			return "AtmUserInterface - display balance returned";
 	}
 
 }

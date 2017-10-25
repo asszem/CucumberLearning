@@ -45,6 +45,13 @@ public class AutomatedTeller implements Teller {
 		return msg;
 	}
 
+	@Override
+	public String displayBalance(Account account) {
+		cashSlotHandledByTeller.setMessage("User balance is: " + account.getBalance().toString());
+//		return accountHandledByTeller.getBalance().toString();
+		return "Automated Teller display balance returns";
+	}
+
 	public Double convertToDouble(Money money) {
 		Double result = (double) (money.dollars() + ((double) money.cents() / 100));
 		return result;
