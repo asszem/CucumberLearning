@@ -59,11 +59,11 @@
 		</dependency>
 		<!-- ENABLING THE SELENIUM SERVER WILL CAUSE THE SELECTOR ERROR IN JETTY -->
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.seleniumhq.selenium</groupId> -->
-<!-- 			<artifactId>selenium-server</artifactId> -->
-<!-- 			<version>${selenium.version}</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.seleniumhq.selenium</groupId> -->
+		<!-- <artifactId>selenium-server</artifactId> -->
+		<!-- <version>${selenium.version}</version> -->
+		<!-- </dependency> -->
 
 		<!-- JUNIT -->
 		<dependency>
@@ -95,5 +95,13 @@
 			<artifactId>jetty-webapp</artifactId>
 			<version>9.4.7.v20170914</version>
 		</dependency>
+		<!-- Required for use FileUtils to delete non-empty directory -->
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
+
 	</dependencies>
 </project>

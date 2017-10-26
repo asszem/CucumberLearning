@@ -1,7 +1,7 @@
 @SingleAccount
 Feature: Display Balance
 
-@HappyPath @WIP
+@HappyPath 
 Scenario Outline: Displaying the balance of the user account
 	Given my account has been credited with $<initialBalance>
 	When I click on the Display Balance button

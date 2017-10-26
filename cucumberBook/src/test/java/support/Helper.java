@@ -3,6 +3,7 @@ package src.test.java.support;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import src.main.java.nicebank.Account;
+import src.main.java.nicebank.AutomatedTeller;
 import src.main.java.nicebank.CashSlot;
 import src.main.java.nicebank.Teller;
 
@@ -29,8 +30,8 @@ public class Helper {
 	public Teller getTeller(CashSlot cashSlot, Account account) {
 		if (teller == null) {
 			// If we want the automated teller
-//			teller = new AutomatedTeller(cashSlot, account);
-			teller = new AtmUserInterface(getWebDriver()); // pass the webdriver only
+			teller = new AutomatedTeller(cashSlot, account);
+//			teller = new AtmUserInterface(getWebDriver()); // pass the webdriver only
 			// object to ATM
 		}
 		return teller;

@@ -1,7 +1,7 @@
 @SingleAccount
 Feature: Cash Withdrawal 
 
-@HappyPath 
+@HappyPath @WIP
 Scenario Outline: Successful withdrawal from an account in credit 
 	Given my account has been credited with $<initialBalance>
 	And ATM has sufficient money to dispose
