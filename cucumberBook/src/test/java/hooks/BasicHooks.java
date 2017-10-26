@@ -3,7 +3,7 @@ package src.test.java.hooks;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import helpers.KillAllDrivers;
+import helpers.WindowsKiller;
 
 public class BasicHooks {
 	@Before
@@ -12,7 +12,8 @@ public class BasicHooks {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
 				System.out.println("Shutdown hook called");
-				KillAllDrivers.killAllDrivers();
+				WindowsKiller.killWebDrivers();
+				WindowsKiller.killFirefoxBrowsers();
 			}
 
 		});
