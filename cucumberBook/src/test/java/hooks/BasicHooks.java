@@ -20,12 +20,12 @@ public class BasicHooks {
 
 	@Before(order = 100)
 	public void hook100() {
-		System.out.println("Hook 100 called");
+//		System.out.println("Hook 100 called");
 	}
 
 	@Before(order = 500)
 	public void hook500() {
-		System.out.println("Hook 500 called");
+//		System.out.println("Hook 500 called");
 	}
 
 	@After

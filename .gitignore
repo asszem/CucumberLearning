@@ -5,3 +5,6 @@
 /bin/
 *.orig
 out/
+cucumberBook/balance.txt
+cucumberBook/messages/
+cucumberBook/screenshots

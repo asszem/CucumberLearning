@@ -21,7 +21,7 @@ import org.apache.commons.io.FileUtils;
 
 public class TransactionQueue {
 	// path should be: CucumberLearning/cucumberBook/Messages
-	private static String MESSAGES_FOLDER = "./messages"; 
+	private static String MESSAGES_FOLDER = "./cucumberBook/messages"; 
 	private static String MESSAGE_FILE_PATH = "%s/%03d"; //%s - string for path / int for id. ex: ./messages/1
 	private int nextId = 1;
 

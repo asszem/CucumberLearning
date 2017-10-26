@@ -15,12 +15,12 @@ import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 public class BalanceStore {
-	private static String BALANCE_FILE_PATH = "./balance";
+	private static String BALANCE_FILE_PATH = "./cucumberBook/balance.txt";	//file will be created in PROJECT root
 
 	public static void clear() {
 		new File(BALANCE_FILE_PATH).delete();
 
-		setBalance(new Money(55, 0));
+		setBalance(new Money(0, 0));
 	}
 
 	public static Money getBalance() {

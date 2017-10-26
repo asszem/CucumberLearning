@@ -22,26 +22,30 @@ public class TransactionProcessor {
 //	private BalanceStore balanceStore = new BalanceStore();
 
 	public void process() {
+		System.out.println("Transaction processor started...");
 		do {
 			//Read the next message from the queue
 			String message = queue.read(); //reading from the queue will also delete that msg.
 
 			//Pause for a second
 			try {
-				Thread.sleep(0000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 
 			}
 
 			//If the message is not empty
 			if (message.length() > 0) {
+				System.out.println("Transaction to be processed: " + message);
 				Money balance = BalanceStore.getBalance();
 				Money transactionAmount = new Money(message);
 
 				if (isCreditTransaction(message)) {
 					BalanceStore.setBalance(balance.add(transactionAmount));
+					System.out.println("Transaction processor: Balance increased");
 				} else {
 					BalanceStore.setBalance(balance.minus(transactionAmount));
+					System.out.println("Transaction processor: Balance decreased");
 				}
 			}
 		} while (true); //never stops

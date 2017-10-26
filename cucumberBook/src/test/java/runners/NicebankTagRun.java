@@ -17,7 +17,7 @@ import cucumber.api.junit.Cucumber;
 //		tags = {"@UnhappyPath"},
 		tags = {"@WIP"},
 		snippets = SnippetType.CAMELCASE,
-		plugin= {"pretty", "html:out"}
+		plugin= {"pretty", "html:cucumberBook/screenshots"}
 		)
 public class NicebankTagRun {
 

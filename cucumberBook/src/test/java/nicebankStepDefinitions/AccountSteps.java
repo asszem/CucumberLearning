@@ -25,19 +25,27 @@ public class AccountSteps {
 		// Actually update the balance
 		helper.getMyAccount().credit(amount); // The helper account makes sure if myAccount is null, it will be created
 
+		System.out.println("Account credited step put to sleep...");
+		Thread.sleep(5000);
+		System.out.println("Account credited step wakes.");
+
 		// New balance with credit
 		Money balanceAfter = helper.getMyAccount().getBalance();
 
 		// Original balance + amount credited
 		Money balanceWithCredit = balanceBefore.add(amount);
 
-		// Validation: the account balance should be increased exactly with the amount credited. This verification is independent of actual scenarios
+		// Validation: the account balance should be increased exactly with the amount
+		// credited. This verification is independent of actual scenarios
 		Assert.assertEquals("Incorrect account balance - ", balanceWithCredit, balanceAfter);
 	}
 
 	@Then("^my account balance should be equal to (\\$\\d+\\.\\d+)$")
 	public void myAccountBalanceShouldBeUpdatedTo$(@Transform(MoneyConverter.class) Money expectedBalance)
 			throws Throwable {
+		System.out.println("Account balance verification step put to sleep...");
+		Thread.sleep(5000);
+		System.out.println("Account balance verification step wakes.");
 		Money actualBalance = helper.getMyAccount().getBalance();
 		Assert.assertEquals("New balance is not correct - ", expectedBalance, actualBalance);
 	}
