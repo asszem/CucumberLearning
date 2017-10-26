@@ -1,11 +1,11 @@
-package nicebank.hooks;
+package src.test.java.hooks;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriverException;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
-import nicebank.helpers.Helper;
+import src.test.java.support.Helper;
 
 public class WebDriverHooks {
 	private Helper helper;

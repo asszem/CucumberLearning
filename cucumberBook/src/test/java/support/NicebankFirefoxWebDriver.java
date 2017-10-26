@@ -1,4 +1,4 @@
-package nicebank.helpers.webdrivers;
+package src.test.java.support;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

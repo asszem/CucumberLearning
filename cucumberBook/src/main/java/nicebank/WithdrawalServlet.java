@@ -6,7 +6,7 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/srjcuc for more book information.
 ***/
-package nicebank.code;
+package src.main.java.nicebank;
 
 import java.io.IOException;
 
@@ -15,9 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nicebank.helpers.Helper;
-import nicebank.helpers.Money;
-import nicebank.helpers.MoneyConverter;
+import src.test.java.support.Helper;
+import src.test.java.transform.MoneyConverter;
 
 //This class is called by the withdrawFrom method of AtmUserInterface class
 //By clicking on the Submit button on the webpage (AtmServlet)

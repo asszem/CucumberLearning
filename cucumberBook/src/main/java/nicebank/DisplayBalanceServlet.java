@@ -1,4 +1,4 @@
-package nicebank.code;
+package src.main.java.nicebank;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nicebank.helpers.Helper;
+import src.test.java.support.Helper;
 
 public class DisplayBalanceServlet extends HttpServlet {
 

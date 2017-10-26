@@ -6,7 +6,7 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/srjcuc for more book information.
 ***/
-package nicebank.code;
+package src.main.java.nicebank;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

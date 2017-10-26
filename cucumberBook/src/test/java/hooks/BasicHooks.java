@@ -1,4 +1,4 @@
-package nicebank.hooks;
+package src.test.java.hooks;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;

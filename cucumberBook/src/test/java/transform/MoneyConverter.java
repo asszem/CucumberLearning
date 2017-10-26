@@ -6,15 +6,17 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/srjcuc for more book information.
 ***/
-package nicebank.helpers;
+package src.test.java.transform;
 
 import cucumber.api.Transformer;
+import src.main.java.nicebank.Money;
 
 //Converts the String input to dollar and cent value and returns a new Money class instance with the dollar/cent values
 public class MoneyConverter extends Transformer<Money> {
 	public Money transform(String amount) {
-		
-		//This ignores the first character (the $ sign) that is also included in the capture group
+
+		// This ignores the first character (the $ sign) that is also included in the
+		// capture group
 		String[] numbers = amount.substring(1).split("\\.");
 
 		int dollars = Integer.parseInt(numbers[0]);

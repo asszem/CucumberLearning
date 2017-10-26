@@ -6,14 +6,14 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/srjcuc for more book information.
 ***/
-package nicebank.code;
+package src.main.java.nicebank;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import nicebank.helpers.Helper;
-import nicebank.hooks.ServerHooks;
+import src.test.java.hooks.ServerHooks;
+import src.test.java.support.Helper;
 
 public class AtmServer {
 	private final Server server;

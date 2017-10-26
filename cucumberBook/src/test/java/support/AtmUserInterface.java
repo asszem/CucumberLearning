@@ -1,12 +1,14 @@
-package nicebank.code;
+package src.test.java.support;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import nicebank.helpers.Money;
-import nicebank.hooks.ServerHooks;
+import src.main.java.nicebank.Account;
+import src.main.java.nicebank.Money;
+import src.main.java.nicebank.Teller;
+import src.test.java.hooks.ServerHooks;
 
 public class AtmUserInterface implements Teller {
 

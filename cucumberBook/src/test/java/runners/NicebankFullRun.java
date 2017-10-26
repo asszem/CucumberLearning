@@ -1,4 +1,4 @@
-package nicebank.runners;
+package src.test.java.runners;
 
 import org.junit.runner.RunWith;
 
@@ -9,8 +9,8 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		plugin= {"pretty", "html:out"},
-		glue = {"nicebank.stepDefinitionsForNiceBank", "nicebank.hooks" }, 
-		features = "cucumberBook/nicebank/resources/features",
+		glue = {"src.test.java.nicebankStepDefinitions", "src.test.java.hooks" }, 
+		features = "cucumberBook/src/test/resources/features",
 		monochrome = true,
 		dryRun = false,
 		snippets = SnippetType.CAMELCASE

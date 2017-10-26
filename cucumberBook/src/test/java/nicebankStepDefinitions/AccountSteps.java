@@ -1,4 +1,4 @@
-package nicebank.stepDefinitionsForNiceBank;
+package src.test.java.nicebankStepDefinitions;
 
 import org.junit.Assert;
 
@@ -6,9 +6,9 @@ import cucumber.api.Transform;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import nicebank.helpers.Helper;
-import nicebank.helpers.Money;
-import nicebank.helpers.MoneyConverter;
+import src.main.java.nicebank.Money;
+import src.test.java.support.Helper;
+import src.test.java.transform.MoneyConverter;
 
 public class AccountSteps {
 	Helper helper;

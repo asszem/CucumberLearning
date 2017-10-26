@@ -1,12 +1,10 @@
-package nicebank.helpers;
+package src.test.java.support;
 
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
-import nicebank.code.Account;
-import nicebank.code.AtmUserInterface;
-import nicebank.code.CashSlot;
-import nicebank.code.Teller;
-import nicebank.helpers.webdrivers.NicebankFirefoxWebDriver;
+import src.main.java.nicebank.Account;
+import src.main.java.nicebank.CashSlot;
+import src.main.java.nicebank.Teller;
 
 public class Helper {
 	private Account myAccount;

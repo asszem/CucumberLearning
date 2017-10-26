@@ -6,7 +6,7 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/srjcuc for more book information.
 ***/
-package nicebank.helpers;
+package src.main.java.nicebank;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

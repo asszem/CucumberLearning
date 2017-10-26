@@ -1,6 +1,4 @@
-package nicebank.code;
-
-import nicebank.helpers.Money;
+package src.main.java.nicebank;
 
 public class AutomatedTeller implements Teller {
 

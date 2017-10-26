@@ -1,14 +1,14 @@
-package nicebank.stepDefinitionsForNiceBank;
+package src.test.java.nicebankStepDefinitions;
 
 import cucumber.api.Transform;
 import cucumber.api.java.en.When;
-import nicebank.code.Account;
-import nicebank.code.CashSlot;
-import nicebank.code.Teller;
-import nicebank.code.AutomatedTeller;
-import nicebank.helpers.Helper;
-import nicebank.helpers.Money;
-import nicebank.helpers.MoneyConverter;
+import src.main.java.nicebank.Account;
+import src.main.java.nicebank.AutomatedTeller;
+import src.main.java.nicebank.CashSlot;
+import src.main.java.nicebank.Money;
+import src.main.java.nicebank.Teller;
+import src.test.java.support.Helper;
+import src.test.java.transform.MoneyConverter;
 
 public class TellerSteps {
 	Helper helper;
