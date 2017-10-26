@@ -36,16 +36,15 @@ public class TransactionProcessor {
 
 			//If the message is not empty
 			if (message.length() > 0) {
-				System.out.println("Transaction to be processed: " + message);
 				Money balance = BalanceStore.getBalance();
 				Money transactionAmount = new Money(message);
 
 				if (isCreditTransaction(message)) {
 					BalanceStore.setBalance(balance.add(transactionAmount));
-					System.out.println("Transaction processor: Balance increased");
+					System.out.println("Transaction processor: "+message+" processed");
 				} else {
 					BalanceStore.setBalance(balance.minus(transactionAmount));
-					System.out.println("Transaction processor: Balance decreased");
+					System.out.println("Transaction processor: "+message+" processed");
 				}
 			}
 		} while (true); //never stops

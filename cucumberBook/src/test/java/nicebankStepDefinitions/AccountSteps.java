@@ -25,9 +25,18 @@ public class AccountSteps {
 		// Actually update the balance
 		helper.getMyAccount().credit(amount); // The helper account makes sure if myAccount is null, it will be created
 
-		System.out.println("Account credited step put to sleep...");
-		Thread.sleep(5000);
-		System.out.println("Account credited step wakes.");
+		// System.out.println("Account credited step put to sleep...");
+		// Thread.sleep(5000);
+		// System.out.println("Account credited step wakes.");
+
+		// Wait until the balance is updated correctly or timeout reached
+		int timeoutMilliSecs = 3000;
+		int pollIntervalMilliSecs = 100;
+		while (!helper.getMyAccount().getBalance().equals(amount) && timeoutMilliSecs > 0) {
+			System.out.println("Polling ..." + timeoutMilliSecs);
+			Thread.sleep(pollIntervalMilliSecs);
+			timeoutMilliSecs -= pollIntervalMilliSecs;
+		}
 
 		// New balance with credit
 		Money balanceAfter = helper.getMyAccount().getBalance();
@@ -43,9 +52,19 @@ public class AccountSteps {
 	@Then("^my account balance should be equal to (\\$\\d+\\.\\d+)$")
 	public void myAccountBalanceShouldBeUpdatedTo$(@Transform(MoneyConverter.class) Money expectedBalance)
 			throws Throwable {
-		System.out.println("Account balance verification step put to sleep...");
-		Thread.sleep(5000);
-		System.out.println("Account balance verification step wakes.");
+		// Workaround: make sure the Cucumber step definition execution always loses the
+		// race
+		// System.out.println("Account balance verification step put to sleep...");
+		// Thread.sleep(5000);
+		// System.out.println("Account balance verification step wakes.");
+
+		// Wait until the balance is updated correctly or timeout reached
+		int timeoutMilliSecs = 3000;
+		int pollIntervalMilliSecs = 100;
+		while (!helper.getMyAccount().getBalance().equals(expectedBalance) && timeoutMilliSecs > 0) {
+			Thread.sleep(pollIntervalMilliSecs);
+			timeoutMilliSecs -= pollIntervalMilliSecs;
+		}
 		Money actualBalance = helper.getMyAccount().getBalance();
 		Assert.assertEquals("New balance is not correct - ", expectedBalance, actualBalance);
 	}
