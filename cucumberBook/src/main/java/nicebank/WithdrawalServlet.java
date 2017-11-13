@@ -25,12 +25,10 @@ public class WithdrawalServlet extends HttpServlet {
 
 	private CashSlot cashSlot;
 	private Account account;
-	private Helper helper;
 
-	public WithdrawalServlet(Helper helper ) {
-		this.cashSlot = helper.getCashSlot();
-		this.account = helper.getMyAccount();
-		this.helper=helper;
+	public WithdrawalServlet (CashSlot cashSlot, Account account) {	
+		this.cashSlot=cashSlot;
+		this.account=account;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +39,7 @@ public class WithdrawalServlet extends HttpServlet {
 		Money withdrawnAmount = new MoneyConverter().transform(amountEnteredToATM);
 		
 		//The automated teller's withdrawFrom method is called which will do the actual withdrawal
-		automatedTeller.withdrawFrom(helper.getMyAccount(), withdrawnAmount);
+		automatedTeller.withdrawFrom(account, withdrawnAmount);
 
 		response.setContentType("text/html");
 		response.setStatus(HttpServletResponse.SC_OK);
@@ -50,8 +48,6 @@ public class WithdrawalServlet extends HttpServlet {
 						+ "<br>Dispensed amount: " 				+ cashSlot.getSlotContents()
 						+ "<br>Cashslot message: "				+ cashSlot.getMessage()
 						+ "<br>User account balance : " 		+ account.getBalance().toString()
-						+ "<br><br>helper cashshlot message : " 	+ helper.getCashSlot().getMessage()
-						+ "<br>helper User account balance : "	+ helper.getMyAccount().getBalance().toString()
 						+ "</body>" + "</html>");
 	}
 }

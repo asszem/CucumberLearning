@@ -11,6 +11,7 @@ package src.main.java.nicebank;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.javalite.activejdbc.Base;
 
 import src.test.java.hooks.ServerHooks;
 import src.test.java.support.Helper;
@@ -18,7 +19,7 @@ import src.test.java.support.Helper;
 public class AtmServer {
 	private final Server server;
 
-	public AtmServer(int port, Helper helper) { // Pass the cashSholt and Account info to the
+	public AtmServer(int port, CashSlot cashSlot, Account account) { // Pass the cashSholt and Account info to the
 																		// server
 		server = new Server(ServerHooks.PORT);
 
@@ -27,8 +28,10 @@ public class AtmServer {
 		server.setHandler(context);
 
 		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
-		context.addServlet(new ServletHolder(new WithdrawalServlet(helper)), "/withdraw");
-		context.addServlet(new ServletHolder(new DisplayBalanceServlet(helper)), "/displayBalance");
+
+		// Servlets now handle new CashSlot and Account instances
+		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlot, account)), "/withdraw");
+		context.addServlet(new ServletHolder(new DisplayBalanceServlet(cashSlot, account)), "/displayBalance");
 	}
 
 	public void start() throws Exception {
@@ -41,7 +44,26 @@ public class AtmServer {
 		System.out.println("ATM Server stopped");
 	}
 
+	public static void main(String[] args) throws Exception {
+		// Javalite - Base class is used to ask ActiveJDBC to open a connection to MySql
+		// database called "bank"
+		Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
+
+		// This creates a new server instance and creates new CashSlot and Account
+		// instances
+		new AtmServer(9988, new CashSlot(), new Account()).start();
+
+		/*
+		 * <!-- Liquibase - Database management --> <groupId>org.liquibase</groupId>
+		 * <artifactId>liquibase-maven-plugin</artifactId> <!-- 3.0.5 -->
+		 * <version>3.5.3</version> <configuration>
+		 * <changeLogFile>src/main/resources/bank_schema.xml</changeLogFile>
+		 * <driver>com.mysql.jdbc.Driver</driver> <url>jdbc:mysql://localhost/bank</url>
+		 * <username>teller</username> <password>password</password> </configuration>
+		 */
+
+	}
 	// public static void main(String[] args) throws Exception {
 	// new AtmServer(ServerHooks.PORT, cashSlot, account).start();
-// }
+	// }
 }

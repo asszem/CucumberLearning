@@ -14,7 +14,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
-public class BalanceStore {
+//This class is not required since using the Database, so instead of deleting, I just renamed it (without refactor)
+public class BalanceStoreObsolete {
 	private static String BALANCE_FILE_PATH = "./cucumberBook/balance.txt";	//file will be created in PROJECT root
 
 	public static void clear() {
