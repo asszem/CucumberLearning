@@ -18,9 +18,11 @@ import src.test.java.support.Helper;
 
 public class AtmServer {
 	private final Server server;
+	private Helper helper;
 
-	public AtmServer(int port, CashSlot cashSlot, Account account) { // Pass the cashSholt and Account info to the
+	public AtmServer(int port, Helper helper) { // Pass the cashSholt and Account info to the
 																		// server
+		this.helper=helper;
 		server = new Server(ServerHooks.PORT);
 
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -30,8 +32,8 @@ public class AtmServer {
 		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
 
 		// Servlets now handle new CashSlot and Account instances
-		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlot, account)), "/withdraw");
-		context.addServlet(new ServletHolder(new DisplayBalanceServlet(cashSlot, account)), "/displayBalance");
+		context.addServlet(new ServletHolder(new WithdrawalServlet(helper.getCashSlot(), helper.getMyAccount())), "/withdraw");
+		context.addServlet(new ServletHolder(new DisplayBalanceServlet(helper.getCashSlot(),helper.getMyAccount())), "/displayBalance");
 	}
 
 	public void start() throws Exception {
@@ -51,7 +53,7 @@ public class AtmServer {
 
 		// This creates a new server instance and creates new CashSlot and Account
 		// instances
-		new AtmServer(9988, new CashSlot(), new Account()).start();
+		new AtmServer(9988, new Helper()).start();
 
 		/*
 		 * <!-- Liquibase - Database management --> <groupId>org.liquibase</groupId>

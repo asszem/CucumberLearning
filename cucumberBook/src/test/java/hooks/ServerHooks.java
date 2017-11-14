@@ -9,12 +9,10 @@ import src.test.java.support.Helper;
 
 public class ServerHooks {
 
-	private CashSlot cashSlotHere;
-	private Account accountHere;
+	private Helper helper;
 
-	public ServerHooks(CashSlot cashSlot, Account account) {	
-		this.cashSlotHere=cashSlot;
-		this.accountHere=account;
+	public ServerHooks(Helper helper) {
+		this.helper = helper;
 	}
 
 	public static final int PORT = 8887;
@@ -22,7 +20,7 @@ public class ServerHooks {
 
 	@Before
 	public void startATMServer() throws Exception {
-		server = new AtmServer(PORT, cashSlotHere, accountHere);
+		server = new AtmServer(PORT, helper);
 		server.start();
 	}
 
