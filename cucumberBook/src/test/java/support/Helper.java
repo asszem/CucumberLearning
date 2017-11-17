@@ -1,5 +1,6 @@
 package src.test.java.support;
 
+import org.javalite.activejdbc.Base;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import src.main.java.nicebank.Account;
@@ -13,9 +14,18 @@ public class Helper {
 	private Teller teller;
 	private EventFiringWebDriver webDriver;
 
+	// Constructor
+	public Helper() {
+		if (!Base.hasConnection()) {
+			Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
+		}
+	}
+
 	public Account getMyAccount() { // To avoid returning null account
 		if (myAccount == null) {
-			myAccount = new Account();
+			System.out.println("Helper initiates account creation");
+			myAccount = new Account(1234); ///1234 is the account number to create the account with
+			myAccount.saveIt();
 		}
 		return myAccount;
 	}
@@ -31,7 +41,7 @@ public class Helper {
 		if (teller == null) {
 			// If we want the automated teller
 			teller = new AutomatedTeller(cashSlot, account);
-//			teller = new AtmUserInterface(getWebDriver()); // pass the webdriver only
+			// teller = new AtmUserInterface(getWebDriver()); // pass the webdriver only
 			// object to ATM
 		}
 		return teller;
@@ -43,4 +53,5 @@ public class Helper {
 		}
 		return webDriver;
 	}
+
 }

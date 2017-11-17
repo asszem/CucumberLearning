@@ -8,6 +8,8 @@
 ***/
 package src.main.java.nicebank;
 
+import org.javalite.activejdbc.Base;
+
 /***
  * The TransactionProcesssor once it is started up, it then enters a loop that
  * tries to read a message off the transaction queue. If it finds one, it pauses
@@ -22,6 +24,12 @@ public class TransactionProcessor {
 
 	public void process() {
 		System.out.println("Transaction processor started...");
+		// Establish a connection to the database so it can access it to read
+		if (!Base.hasConnection()) {
+			Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
+		}
+		System.out.println("Connection for database established");
+
 		do {
 			// Read the next message from the queue
 			String message = queue.read(); // reading from the queue will also delete that msg.
@@ -35,11 +43,13 @@ public class TransactionProcessor {
 
 			// If the message is not empty it will read the data from the DATABASE
 			if (message.length() > 0) {
-				String[] parts = message.split(","); //value,accountnumber example: 123.45,1   - the $ sign is removed when writing to DB
-				Account account = Account.findFirst("number = ?",  parts[1]);
+				String[] parts = message.split(","); // value,accountnumber example: 123.45,1 - the $ sign is removed
+														// when writing to DB
+				Account account = Account.findFirst("number = ?", parts[1]);
 				Money transactionAmount = new Money(parts[0]);
 
 				if (isCreditTransaction(message)) {
+					//Sets the new balance by adding the new transactionAmount 
 					account.setBalance(account.getBalance().add(transactionAmount));
 					System.out.println("Transaction processor: " + message + " processed");
 				} else {

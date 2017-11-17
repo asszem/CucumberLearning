@@ -10,7 +10,7 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-	<changeSet id="1" author="seb">
+	<changeSet id="1" author="andras">
 		<createTable tableName="accounts">
 			<!-- this is the db id -->
 			<column name="id" type="int" autoIncrement="true">
@@ -27,6 +27,10 @@
 			<!-- This is the account balance without the $ sign -->
 			<column name="balance" type="decimal(13,2)"
 				defaultValueNumeric="0.00">
+				<constraints nullable="false" />
+			</column>
+			<column name="test_column" type="decimal(13,2)"
+				defaultValueNumeric="12.00">
 				<constraints nullable="false" />
 			</column>
 		</createTable>

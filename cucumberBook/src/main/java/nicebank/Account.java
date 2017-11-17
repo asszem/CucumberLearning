@@ -7,9 +7,23 @@ public class Account extends Model {
 	private Money balance = new Money();
 	private TransactionQueue queue = new TransactionQueue();
 
+	// A default constructor needed, othervise activeJDBC throws error:
+	// org.javalite.activejdbc.InitException: Failed to create a new instance of:
+	// class src.main.java.nicebank.Account, are you sure this class has a default
+	// constructor?
+	public Account() {
+	}
+
+	// Constructor to set an initial balance for the account
+	public Account(int accountNumber) {
+		setInteger("number", accountNumber);
+		setString("balance", "0.00");
+		System.out.println("Acccount " + accountNumber + " with zero balance created");
+	}
+
 	/**
-	 * Credit @param amount Money to Account identified by number
-	 * Example: +$123.45,1
+	 * Credit @param amount Money to Account identified by number Example:
+	 * +$123.45,1
 	 */
 	public void credit(Money amount) {
 

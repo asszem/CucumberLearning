@@ -22,8 +22,11 @@ public class AccountSteps {
 		// Original balance
 		Money balanceBefore = helper.getMyAccount().getBalance();
 
-		// Actually update the balance
+		// Actually update the balance - this method to be updated to use the db not the file
 		helper.getMyAccount().credit(amount); // The helper account makes sure if myAccount is null, it will be created
+		
+		// To set directly an initial account balance
+		helper.getMyAccount().setBalance(amount);
 
 		// System.out.println("Account credited step put to sleep...");
 		// Thread.sleep(5000);

@@ -20,9 +20,9 @@ public class AtmServer {
 	private final Server server;
 	private Helper helper;
 
-	public AtmServer(int port, Helper helper) { // Pass the cashSholt and Account info to the
-																		// server
-		this.helper=helper;
+	//Constructor 1 - cashslot and account retrieved from helper object
+	public AtmServer(int port, Helper helper) { 
+		this.helper = helper;
 		server = new Server(ServerHooks.PORT);
 
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -32,8 +32,25 @@ public class AtmServer {
 		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
 
 		// Servlets now handle new CashSlot and Account instances
-		context.addServlet(new ServletHolder(new WithdrawalServlet(helper.getCashSlot(), helper.getMyAccount())), "/withdraw");
-		context.addServlet(new ServletHolder(new DisplayBalanceServlet(helper.getCashSlot(),helper.getMyAccount())), "/displayBalance");
+		context.addServlet(new ServletHolder(new WithdrawalServlet(helper.getCashSlot(), helper.getMyAccount())),
+				"/withdraw");
+		context.addServlet(new ServletHolder(new DisplayBalanceServlet(helper.getCashSlot(), helper.getMyAccount())),
+				"/displayBalance");
+	}
+
+	//Constructor 2 - cashSlot and account insantiated in the main method
+	public AtmServer(int port, CashSlot cashSlot, Account account) { 
+		server = new Server(ServerHooks.PORT);
+
+		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		context.setContextPath("/");
+		server.setHandler(context);
+
+		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
+
+		// Servlets now handle new CashSlot and Account instances
+		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlot, account)), "/withdraw");
+		context.addServlet(new ServletHolder(new DisplayBalanceServlet(cashSlot, account)), "/displayBalance");
 	}
 
 	public void start() throws Exception {
@@ -47,13 +64,16 @@ public class AtmServer {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// Javalite - Base class is used to ask ActiveJDBC to open a connection to MySql
+		// Javalite (activeJDBC) - Base class is used to ask ActiveJDBC to open a
+		// connection to MySql
 		// database called "bank"
 		Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
 
-		// This creates a new server instance and creates new CashSlot and Account
-		// instances
-		new AtmServer(9988, new Helper()).start();
+		// This creates a new server instance with ew CashSlot and Account instances
+		new AtmServer(9988, new CashSlot(), new Account(5678)).start();
+
+		// Starts the server with a new Helper instance
+		// new AtmServer(9988, new Helper()).start();
 
 		/*
 		 * <!-- Liquibase - Database management --> <groupId>org.liquibase</groupId>
