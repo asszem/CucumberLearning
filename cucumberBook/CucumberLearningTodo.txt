@@ -1,0 +1,16 @@
+Next chapter: 
+Cleaning the Database with Transactions
+
+- When running multiple scenarios, the account "1234" is to be created, but since it does already exists,
+the connection fails and the scenarion fails. 
+
+It needs to be solved that each scenario starts with a same state of the database
+
+
+Mysql users:
+
+root
+    root/alma
+user
+    tellerA/teller
+    teller/password

@@ -27,8 +27,8 @@ public class TransactionProcessor {
 		// Establish a connection to the database so it can access it to read
 		if (!Base.hasConnection()) {
 			Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
+			System.out.println("Transaction processor: Connection to database established");
 		}
-		System.out.println("Transaction processor: Connection to database established");
 
 		do {
 			// Read the next message from the queue
@@ -43,31 +43,21 @@ public class TransactionProcessor {
 
 			// If the message is not empty it will read the data from the DATABASE
 			if (message.length() > 0) {
-				System.out.println("Transaction processor: message found: " + message);
+//				System.out.println("Transaction processor: message found: " + message);
 				String[] parts = message.split(","); // value,accountnumber example: 123.45,1 - the $ sign is removed
 														// when writing to DB
 				Account account = Account.findFirst("number = ?", parts[1]);
 				Money transactionAmount = new Money(parts[0]);
-				System.out.println("Transaction processor: retived account's balance: " + account.getBalance());
 
 				if (isCreditTransaction(message)) {
 					// Sets the new balance by adding the new transactionAmount
-					System.out.println("Account to CREDIT: " + parts[1]);
-					System.out.println("Amount before processing credit: " + account.getBalance());
+//					System.out.println("Account to CREDIT: " + parts[1]);
 					account.setBalance(account.getBalance().add(transactionAmount));
-					System.out.println("Amount after processing credit: " + account.getBalance());
 					System.out.println("Transaction processor: " + message + " processed\n");
 				} else {
-					System.out.println("Account to DEBIT: " + parts[1]);
-					System.out.println("Transaction amount to DEBIT: " + transactionAmount);
-					System.out.println("Opening balance: " + account.getBalance());
-					System.out
-							.println("Balance should be after update " + account.getBalance().minus(transactionAmount));
-					System.out.println("Perfroming update...");
+//					System.out.println("Account to DEBIT: " + parts[1]);
 					account.setBalance(account.getBalance().minus(transactionAmount));
-					System.out.println("Actual Balance after debit: " + account.getBalance());
 					System.out.println("Transaction processor: " + message + " processed\n");
-//					account.saveIt();
 				}
 			}
 		} while (true); // never stops
