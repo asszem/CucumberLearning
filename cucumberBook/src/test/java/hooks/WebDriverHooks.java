@@ -14,7 +14,7 @@ public class WebDriverHooks {
 		this.helper = helper;
 	}
 
-	@After
+//	@After
 	public void finish(Scenario scenario) {
 		try {
 			System.out.println("Finish hook called, screenshot taken");

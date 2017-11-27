@@ -18,13 +18,14 @@ public class Helper {
 	public Helper() {
 		if (!Base.hasConnection()) {
 			Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
+			System.out.println("Helper: connection to database established");
 		}
 	}
 
 	public Account getMyAccount() { // To avoid returning null account
 		if (myAccount == null) {
 			System.out.println("Helper initiates account creation");
-			myAccount = new Account(1234); ///1234 is the account number to create the account with
+			myAccount = new Account(1234); /// 1234 is the account number to create the account with
 			myAccount.saveIt();
 		}
 		return myAccount;

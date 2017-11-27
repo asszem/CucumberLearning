@@ -22,7 +22,10 @@ public class TellerSteps {
 		CashSlot cashSlot = helper.getCashSlot();
 		Account account = helper.getMyAccount();
 		Teller teller = helper.getTeller(cashSlot, account);
+//		System.out.println("I withdraw method called");
 		teller.withdrawFrom(account, amount);
+//		Thread.sleep(10000);
+//		System.out.println("Waking after I withdraw");
 //		Money dispensedMoney = cashSlot.getSlotContents();
 		
 		//The cashSlot message is set by the withdrawnFrom method

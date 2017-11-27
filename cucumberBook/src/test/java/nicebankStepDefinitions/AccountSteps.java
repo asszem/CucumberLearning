@@ -22,21 +22,29 @@ public class AccountSteps {
 		// Original balance
 		Money balanceBefore = helper.getMyAccount().getBalance();
 
-		// Actually update the balance - this method to be updated to use the db not the file
+		// Actually update the balance - this method to be updated to use the db not the
+		// file
+		System.out.println("Balance before credit: " + balanceBefore);
+		System.out.println("amount to be credited: " + amount);
 		helper.getMyAccount().credit(amount); // The helper account makes sure if myAccount is null, it will be created
-		
-		// To set directly an initial account balance
-		helper.getMyAccount().setBalance(amount);
+		Thread.sleep(5000);
+		System.out.println("Balance after credit: " + helper.getMyAccount().getBalance());
 
-		// System.out.println("Account credited step put to sleep...");
+		// MAKE SURE BALANCE IS UPDATED ONLY ONCE
+		// To set directly an initial account balance
+		// helper.getMyAccount().setBalance(amount);
+
+		// System.out.println("Account credited step put to sleep to give enough time
+		// for transaction processor...");
 		// Thread.sleep(5000);
 		// System.out.println("Account credited step wakes.");
 
 		// Wait until the balance is updated correctly or timeout reached
 		int timeoutMilliSecs = 3000;
 		int pollIntervalMilliSecs = 100;
+		System.out.println("Polling");
 		while (!helper.getMyAccount().getBalance().equals(amount) && timeoutMilliSecs > 0) {
-			System.out.println("Polling ..." + timeoutMilliSecs);
+			System.out.print(".");
 			Thread.sleep(pollIntervalMilliSecs);
 			timeoutMilliSecs -= pollIntervalMilliSecs;
 		}

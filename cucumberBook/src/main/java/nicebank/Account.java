@@ -18,7 +18,7 @@ public class Account extends Model {
 	public Account(int accountNumber) {
 		setInteger("number", accountNumber);
 		setString("balance", "0.00");
-		System.out.println("Acccount " + accountNumber + " with zero balance created");
+		System.out.println("Acccount " + accountNumber + " with "+getString("balance")+" balance created");
 	}
 
 	/**
@@ -31,6 +31,7 @@ public class Account extends Model {
 		// queue.write("+" + amount.toString()); // Asynchron update - TrxQ -> TrxProc
 		// -> CreditStore
 		queue.write("+" + amount.toString() + "," + getNumber()); // Asynchron update and activeJDBC method getNumber
+		System.out.println("Credit queue created.");
 	}
 
 	/**
@@ -49,14 +50,18 @@ public class Account extends Model {
 		// return balance;
 		// return BalanceStore.getBalance();
 
-		// ActiveJDBC method getString
+		// To refresh the DB data before retrieveing....
+		refresh();
+		// ActiveJDBC method getString to get the string value of balance field
 		return new Money(getString("balance")); // Returns the value of "balance" field for user
 	}
 
 	public void setBalance(Money amount) {
+		System.out.println("Balance to set in database: "+ amount.toString().substring(1));
 		setString("balance", amount.toString().substring(1)); // substring(1) removes the leading $ sign from balance
 																// string
-		saveIt(); // ActiveJDBC method to commit the balance change
+		boolean result=saveIt(); // ActiveJDBC method to commit the balance change
+		System.out.println("Account: setBalance saveIt() called, result: " + result);
 	}
 
 	public int getNumber() {
