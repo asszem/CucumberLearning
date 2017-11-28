@@ -18,7 +18,13 @@ public class Helper {
 	public Helper() {
 		if (!Base.hasConnection()) {
 			Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
-			System.out.println("Helper: connection to database established");
+
+			//Turning off transaction auto completion
+			try {
+				Base.connection().setAutoCommit(false);
+			} catch (Exception se) {
+				// ignore exception
+			}
 		}
 	}
 

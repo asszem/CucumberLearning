@@ -19,11 +19,10 @@ import org.javalite.activejdbc.Base;
 public class TransactionProcessor {
 	private TransactionQueue queue = new TransactionQueue();
 
-	// TODO the BalanceStore instantiation is missing
-	// private BalanceStore balanceStore = new BalanceStore();
 
 	public void process() {
 		System.out.println("Transaction processor started...");
+
 		// Establish a connection to the database so it can access it to read
 		if (!Base.hasConnection()) {
 			Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
@@ -47,6 +46,9 @@ public class TransactionProcessor {
 				String[] parts = message.split(","); // value,accountnumber example: 123.45,1 - the $ sign is removed
 														// when writing to DB
 				Account account = Account.findFirst("number = ?", parts[1]);
+				if (account == null) {
+					throw new RuntimeException("Account number not found: " + parts[1]);
+				}
 				Money transactionAmount = new Money(parts[0]);
 
 				if (isCreditTransaction(message)) {
