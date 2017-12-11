@@ -1,9 +1,14 @@
 package stepDefinitions;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cucumber.api.DataTable;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -59,4 +64,70 @@ public class DataTableSD {
 		// Compare arrayList to originalTable
 		updatedTable.diff(modifiableList);
 	}
+
+	// Scenario: getting simple numbers
+	private List<Integer> numbers;
+	private int sum;
+
+	@Given("^a list of numbers$")
+	public void a_list_of_numbers(List<Integer> numbers) throws Throwable {
+		this.numbers = numbers;
+	}
+
+	@When("^I summarize them$")
+	public void i_summarize_them() throws Throwable {
+		for (Integer number : numbers) {
+			sum += number;
+		}
+	}
+
+	@Then("^should I get (\\d+)$")
+	public void should_I_get(int expectedSum) throws Throwable {
+		assertEquals(expectedSum, sum, 0);
+	}
+
+	// Scenario: using table with headers and a helper class
+
+	// Helper class
+	class Price {
+		private String product;
+		private Integer price;
+		private String currency;
+
+		public Price(String product, Integer price, String currency) {
+			this.product = product;
+			this.price = price;
+			this.currency = currency;
+		}
+
+		public String getProduct() {
+			return product;
+		}
+
+		public Integer getPrice() {
+			return price;
+		}
+
+		public String getCurrency() {
+			return currency;
+		}
+	}
+
+	private Map<String, Price> priceList;
+
+	//The parameter prices must have the fields with same name defined as the first row in gherkin
+	@Given("^This is the hash map to get values$")
+	public void this_is_the_hash_map_to_get_values(List<Price> prices) throws Throwable {
+		System.out.println("prices.size" + prices.size());
+		System.out.println("prices.size" + prices.get(0).currency);
+		priceList = new HashMap<String, Price>();
+		for (Price price : prices) {
+			String key = price.getProduct();
+			priceList.put(key, price);
+			System.out.println(priceList.get(key).getProduct());
+			System.out.println(priceList.get(key).getPrice());
+			System.out.println(priceList.get(key).getCurrency());
+		}
+	}
+
 }
