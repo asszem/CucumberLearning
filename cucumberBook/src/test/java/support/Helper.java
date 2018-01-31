@@ -16,21 +16,24 @@ public class Helper {
 
 	// Constructor
 	public Helper() {
+		System.out.println("Helper instance created");
 		if (!Base.hasConnection()) {
 			Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
 
-			//Turning off transaction auto completion
-			try {
-				Base.connection().setAutoCommit(false);
-			} catch (Exception se) {
-				// ignore exception
-			}
+			// Turning off transaction auto completion
+			// This will not work if multiple connections are used to the database
+			// try {
+			// Base.connection().setAutoCommit(false);
+			// } catch (Exception se) {
+			// // ignore exception
+			// }
 		}
+		Account.deleteAll();
 	}
 
 	public Account getMyAccount() { // To avoid returning null account
 		if (myAccount == null) {
-			System.out.println("Helper initiates account creation");
+			System.out.println("Helper initiates account creation with account number 1234");
 			myAccount = new Account(1234); /// 1234 is the account number to create the account with
 			myAccount.saveIt();
 		}

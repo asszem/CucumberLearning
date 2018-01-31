@@ -14,10 +14,14 @@ public class WebDriverHooks {
 		this.helper = helper;
 	}
 
-//	@After
+	// @After
 	public void finish(Scenario scenario) {
 		try {
 			System.out.println("Finish hook called, screenshot taken");
+			
+			// This works with chromedrier:
+			// byte[] screenshot = ((TakesScreenshot) webdriver.getScreenshotAs(OutputType.BYTES);
+
 			byte[] screenshot = helper.getWebDriver().getScreenshotAs(OutputType.BYTES);
 			scenario.embed(screenshot, "image/png");
 		} catch (WebDriverException somePlatformsDontSupportScreenshots) {

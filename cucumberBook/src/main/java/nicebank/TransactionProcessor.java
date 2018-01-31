@@ -34,15 +34,15 @@ public class TransactionProcessor {
 			String message = queue.read(); // reading from the queue will also delete that msg.
 
 			// Pause for a second to create a race condition
-			// try {
-			// Thread.sleep(1000);
-			// } catch (InterruptedException e) {
-			//
-			// }
+			 try {
+			 Thread.sleep(1000);
+			 } catch (InterruptedException e) {
+			
+			 }
 
 			// If the message is not empty it will read the data from the DATABASE
 			if (message.length() > 0) {
-//				System.out.println("Transaction processor: message found: " + message);
+				System.out.println("Transaction processor: message found: " + message);
 				String[] parts = message.split(","); // value,accountnumber example: 123.45,1 - the $ sign is removed
 														// when writing to DB
 				Account account = Account.findFirst("number = ?", parts[1]);

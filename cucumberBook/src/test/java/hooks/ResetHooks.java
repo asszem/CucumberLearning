@@ -12,10 +12,12 @@ public class ResetHooks {
 	public void resetData() {
 		TransactionQueue.clear();
 	}
-	
-	//To roll back JDBC transaction after each scenario
+
+	// To roll back JDBC transaction after each scenario
 	@After
 	public void rollback() {
-		Base.rollbackTransaction();
+		// Can't call rollback when autocommit=true
+		// When autocommit=true then multiple connections are not working properly
+		// Base.rollbackTransaction();
 	}
 }

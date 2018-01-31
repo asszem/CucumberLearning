@@ -2,6 +2,7 @@ package src.main.java.nicebank;
 
 import org.javalite.activejdbc.Model;
 
+//by inheriting from ActiveJDBC::Model it will act on the accounts table we’re about to create:
 public class Account extends Model {
 
 	private Money balance = new Money();
@@ -18,13 +19,12 @@ public class Account extends Model {
 	public Account(int accountNumber) {
 		setInteger("number", accountNumber);
 		setString("balance", "0.00");
-		// System.out.println("Acccount " + accountNumber + " with
-		// "+getString("balance")+" balance created");
+		System.out.println("Acccount " + accountNumber + " with " + getString("balance") + " balance created");
+		System.out.println("Account number from database: " + getString("number"));
 	}
 
 	/**
-	 * Credit @param amount Money to Account identified by number Example:
-	 * +$123.45,1
+	 * Credit @param amount Money to Account identified by number Example: +$123.45,1
 	 */
 	public void credit(Money amount) {
 

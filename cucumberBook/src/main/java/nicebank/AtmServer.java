@@ -64,13 +64,13 @@ public class AtmServer {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// Javalite (activeJDBC) - Base class is used to ask ActiveJDBC to open a
-		// connection to MySql
-		// database called "bank"
+		// Javalite (activeJDBC) - Base class is used to ask ActiveJDBC to open a connection to MySql database called "bank"
 		Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
 
-		// This creates a new server instance with ew CashSlot and Account instances
-		new AtmServer(9988, new CashSlot(), new Account(5678)).start();
+		// This creates a new server instance with new CashSlot and Account instances
+		int portForServer=9988;
+		int accountNumber=5678;
+		new AtmServer(portForServer, new CashSlot(), new Account(accountNumber)).start();
 
 		// Starts the server with a new Helper instance
 		// new AtmServer(9988, new Helper()).start();

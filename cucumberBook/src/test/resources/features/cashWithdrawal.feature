@@ -12,8 +12,8 @@ Scenario Outline: Successful withdrawal from an account in credit
 	Examples:
 	|initialBalance	| withdrawnMoney	| newBalance 	| successMessage |
 	|100.00			| 25.00			 	| 75.00			| Successfull withdrawal |
-	|50.00			| 5.00			 	| 45.00			| Successfull withdrawal |
-	|22.00			| 2.00			 	| 20.00			| Successfull withdrawal |
+#	|50.00			| 5.00			 	| 45.00			| Successfull withdrawal |
+#	|22.00			| 2.00			 	| 20.00			| Successfull withdrawal |
 
 @UnhappyPath 
 Scenario Outline: Unsuccessful withdrawal from an account due to insufficient account balance 
