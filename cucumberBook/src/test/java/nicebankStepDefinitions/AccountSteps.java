@@ -3,22 +3,28 @@ package src.test.java.nicebankStepDefinitions;
 import org.junit.Assert;
 
 import cucumber.api.Transform;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import src.main.java.nicebank.Money;
+import src.test.java.support.DITest;
 import src.test.java.support.Helper;
 import src.test.java.transform.MoneyConverter;
 
 public class AccountSteps {
 	Helper helper;
+	DITest depTest;
 
-	public AccountSteps(Helper helper) {
+	public AccountSteps(Helper helper, DITest depTest) {
 		this.helper = helper;
+		this.depTest = depTest;
 	}
 
 	@Given("^my account has been credited with (\\$\\d+\\.\\d+)$")
 	public void i_have_deposited_$_in_my_account(@Transform(MoneyConverter.class) Money amount) throws Throwable {
+
+		System.out.println("Dependency injection test");
+		depTest.printMsg();
+
 		// Original balance
 		Money balanceBefore = helper.getMyAccount().getBalance();
 

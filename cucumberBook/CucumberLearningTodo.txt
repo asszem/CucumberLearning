@@ -1,4 +1,3 @@
-Next chapter: 
-Cleaning the Database with Truncation
+Next chapter: Chapter 11 - Simplyfying Design with Dependency Injection
 
 
