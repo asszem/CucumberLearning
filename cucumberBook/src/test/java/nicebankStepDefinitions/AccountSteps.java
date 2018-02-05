@@ -7,15 +7,22 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import src.main.java.nicebank.Money;
 import src.test.java.support.DITest;
-import src.test.java.support.Helper;
+import src.test.java.support.KnowsTheAccount;
+import src.test.java.support.KnowsTheCashSlot;
+import src.test.java.support.KnowsTheTeller;
 import src.test.java.transform.MoneyConverter;
 
 public class AccountSteps {
-	Helper helper;
-	DITest depTest;
+	private DITest depTest;
+	private KnowsTheCashSlot clashSlotHelper;
+	private KnowsTheAccount accountHelper;
+	private KnowsTheTeller tellerHelper;
 
-	public AccountSteps(Helper helper, DITest depTest) {
-		this.helper = helper;
+	public AccountSteps(KnowsTheCashSlot knowsTheClashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
+			KnowsTheTeller knowsTheTellerInjected, DITest depTest) {
+		this.clashSlotHelper = knowsTheClashSlotInjected;
+		this.accountHelper = knowsTheAccountInjected;
+		this.tellerHelper = knowsTheTellerInjected;
 		this.depTest = depTest;
 	}
 
@@ -26,11 +33,11 @@ public class AccountSteps {
 		depTest.printMsg();
 
 		// Original balance
-		Money balanceBefore = helper.getMyAccount().getBalance();
+		Money balanceBefore = accountHelper.getMyAccount().getBalance();
 
 		// Actually update the balance - this method to be updated to use the db not the
 		// file
-		helper.getMyAccount().credit(amount); // The helper account makes sure if myAccount is null, it will be created
+		accountHelper.getMyAccount().credit(amount); // The helper account makes sure if myAccount is null, it will be created
 		Thread.sleep(5000);
 
 		// MAKE SURE BALANCE IS UPDATED ONLY ONCE
@@ -46,14 +53,14 @@ public class AccountSteps {
 		int timeoutMilliSecs = 3000;
 		int pollIntervalMilliSecs = 100;
 		System.out.println("Polling until balance update completed");
-		while (!helper.getMyAccount().getBalance().equals(amount) && timeoutMilliSecs > 0) {
+		while (!accountHelper.getMyAccount().getBalance().equals(amount) && timeoutMilliSecs > 0) {
 			System.out.print(".");
 			Thread.sleep(pollIntervalMilliSecs);
 			timeoutMilliSecs -= pollIntervalMilliSecs;
 		}
 
 		// New balance with credit
-		Money balanceAfter = helper.getMyAccount().getBalance();
+		Money balanceAfter = accountHelper.getMyAccount().getBalance();
 
 		// Original balance + amount credited
 		Money balanceWithCredit = balanceBefore.add(amount);
@@ -75,11 +82,11 @@ public class AccountSteps {
 		// Wait until the balance is updated correctly or timeout reached
 		int timeoutMilliSecs = 3000;
 		int pollIntervalMilliSecs = 100;
-		while (!helper.getMyAccount().getBalance().equals(expectedBalance) && timeoutMilliSecs > 0) {
+		while (!accountHelper.getMyAccount().getBalance().equals(expectedBalance) && timeoutMilliSecs > 0) {
 			Thread.sleep(pollIntervalMilliSecs);
 			timeoutMilliSecs -= pollIntervalMilliSecs;
 		}
-		Money actualBalance = helper.getMyAccount().getBalance();
+		Money actualBalance = accountHelper.getMyAccount().getBalance();
 		Assert.assertEquals("New balance is not correct - ", expectedBalance, actualBalance);
 	}
 }

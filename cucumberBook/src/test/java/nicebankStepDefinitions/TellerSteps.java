@@ -3,26 +3,34 @@ package src.test.java.nicebankStepDefinitions;
 import cucumber.api.Transform;
 import cucumber.api.java.en.When;
 import src.main.java.nicebank.Account;
-import src.main.java.nicebank.AutomatedTeller;
 import src.main.java.nicebank.CashSlot;
 import src.main.java.nicebank.Money;
 import src.main.java.nicebank.Teller;
-import src.test.java.support.Helper;
+import src.test.java.support.KnowsTheAccount;
+import src.test.java.support.KnowsTheCashSlot;
+import src.test.java.support.KnowsTheTeller;
 import src.test.java.transform.MoneyConverter;
 
 public class TellerSteps {
-	Helper helper;
 
-	public TellerSteps(Helper helper) {
-		this.helper = helper;
+	KnowsTheCashSlot cashSlotHelper;
+	KnowsTheAccount accountHelper;
+	KnowsTheTeller tellerHelper;
+
+	public TellerSteps(KnowsTheCashSlot knowsTheClashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
+			KnowsTheTeller knowsTheTellerInjected) {
+		this.cashSlotHelper = knowsTheClashSlotInjected;
+		this.accountHelper = knowsTheAccountInjected;
+		this.tellerHelper = knowsTheTellerInjected;
 	}
 
 	@When("^I withdraw (\\$\\d+\\.\\d+)$")
 	public void i_request_$(@Transform(MoneyConverter.class) Money amount) throws Throwable {
-		CashSlot cashSlot = helper.getCashSlot();
-		Account account = helper.getMyAccount();
-		Teller teller = helper.getTeller(cashSlot, account);
+		CashSlot cashSlot = cashSlotHelper.getCashSlot();
+		Account account = accountHelper.getMyAccount();
+		Teller teller = tellerHelper.getTeller(cashSlot, account);
 		teller.withdrawFrom(account, amount);
+
 //		Thread.sleep(10000);
 //		System.out.println("Waking after I withdraw");
 //		Money dispensedMoney = cashSlot.getSlotContents();

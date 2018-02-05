@@ -14,15 +14,22 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.javalite.activejdbc.Base;
 
 import src.test.java.hooks.ServerHooks;
-import src.test.java.support.Helper;
+import src.test.java.support.KnowsTheAccount;
+import src.test.java.support.KnowsTheCashSlot;
+import src.test.java.support.KnowsTheTeller;
 
 public class AtmServer {
 	private final Server server;
-	private Helper helper;
+	KnowsTheCashSlot cashSlotHelper;
+	KnowsTheAccount accountHelper;
+	KnowsTheTeller tellerHelper;
 
-	//Constructor 1 - cashslot and account retrieved from helper object
-	public AtmServer(int port, Helper helper) { 
-		this.helper = helper;
+	// Constructor 1 - cashslot and account retrieved from injected KnowsTheXxx objects
+	public AtmServer(int port, KnowsTheCashSlot knowsTheCashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
+			KnowsTheTeller knowsTheTellerInjected) {
+		this.cashSlotHelper = knowsTheCashSlotInjected;
+		this.accountHelper = knowsTheAccountInjected;
+		this.tellerHelper = knowsTheTellerInjected;
 		server = new Server(ServerHooks.PORT);
 
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -32,14 +39,14 @@ public class AtmServer {
 		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
 
 		// Servlets now handle new CashSlot and Account instances
-		context.addServlet(new ServletHolder(new WithdrawalServlet(helper.getCashSlot(), helper.getMyAccount())),
+		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlotHelper.getCashSlot(), accountHelper.getMyAccount())),
 				"/withdraw");
-		context.addServlet(new ServletHolder(new DisplayBalanceServlet(helper.getCashSlot(), helper.getMyAccount())),
+		context.addServlet(new ServletHolder(new DisplayBalanceServlet(cashSlotHelper.getCashSlot(), accountHelper.getMyAccount())),
 				"/displayBalance");
 	}
 
-	//Constructor 2 - cashSlot and account insantiated in the main method
-	public AtmServer(int port, CashSlot cashSlot, Account account) { 
+	// Constructor 2 - cashSlot and account insantiated in the main method
+	public AtmServer(int port, CashSlot cashSlot, Account account) {
 		server = new Server(ServerHooks.PORT);
 
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -68,20 +75,17 @@ public class AtmServer {
 		Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
 
 		// This creates a new server instance with new CashSlot and Account instances
-		int portForServer=9988;
-		int accountNumber=5678;
+		int portForServer = 9988;
+		int accountNumber = 5678;
 		new AtmServer(portForServer, new CashSlot(), new Account(accountNumber)).start();
 
 		// Starts the server with a new Helper instance
 		// new AtmServer(9988, new Helper()).start();
 
 		/*
-		 * <!-- Liquibase - Database management --> <groupId>org.liquibase</groupId>
-		 * <artifactId>liquibase-maven-plugin</artifactId> <!-- 3.0.5 -->
-		 * <version>3.5.3</version> <configuration>
-		 * <changeLogFile>src/main/resources/bank_schema.xml</changeLogFile>
-		 * <driver>com.mysql.jdbc.Driver</driver> <url>jdbc:mysql://localhost/bank</url>
-		 * <username>teller</username> <password>password</password> </configuration>
+		 * <!-- Liquibase - Database management --> <groupId>org.liquibase</groupId> <artifactId>liquibase-maven-plugin</artifactId> <!-- 3.0.5 -->
+		 * <version>3.5.3</version> <configuration> <changeLogFile>src/main/resources/bank_schema.xml</changeLogFile> <driver>com.mysql.jdbc.Driver</driver>
+		 * <url>jdbc:mysql://localhost/bank</url> <username>teller</username> <password>password</password> </configuration>
 		 */
 
 	}
