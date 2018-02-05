@@ -15,19 +15,18 @@ import org.javalite.activejdbc.Base;
 
 import src.test.java.hooks.ServerHooks;
 import src.test.java.support.KnowsTheAccount;
-import src.test.java.support.KnowsTheCashSlot;
 import src.test.java.support.KnowsTheTeller;
 
 public class AtmServer {
 	private final Server server;
-	KnowsTheCashSlot cashSlotHelper;
+	CashSlot cashSlotInjected;
 	KnowsTheAccount accountHelper;
 	KnowsTheTeller tellerHelper;
 
 	// Constructor 1 - cashslot and account retrieved from injected KnowsTheXxx objects
-	public AtmServer(int port, KnowsTheCashSlot knowsTheCashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
+	public AtmServer(int port, CashSlot cashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
 			KnowsTheTeller knowsTheTellerInjected) {
-		this.cashSlotHelper = knowsTheCashSlotInjected;
+		this.cashSlotInjected = cashSlotInjected;
 		this.accountHelper = knowsTheAccountInjected;
 		this.tellerHelper = knowsTheTellerInjected;
 		server = new Server(ServerHooks.PORT);
@@ -39,9 +38,9 @@ public class AtmServer {
 		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
 
 		// Servlets now handle new CashSlot and Account instances
-		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlotHelper.getCashSlot(), accountHelper.getMyAccount())),
+		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlotInjected, accountHelper.getMyAccount())),
 				"/withdraw");
-		context.addServlet(new ServletHolder(new DisplayBalanceServlet(cashSlotHelper.getCashSlot(), accountHelper.getMyAccount())),
+		context.addServlet(new ServletHolder(new DisplayBalanceServlet(cashSlotInjected, accountHelper.getMyAccount())),
 				"/displayBalance");
 	}
 

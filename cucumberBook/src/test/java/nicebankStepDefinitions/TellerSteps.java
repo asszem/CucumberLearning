@@ -7,26 +7,25 @@ import src.main.java.nicebank.CashSlot;
 import src.main.java.nicebank.Money;
 import src.main.java.nicebank.Teller;
 import src.test.java.support.KnowsTheAccount;
-import src.test.java.support.KnowsTheCashSlot;
 import src.test.java.support.KnowsTheTeller;
 import src.test.java.transform.MoneyConverter;
 
 public class TellerSteps {
 
-	KnowsTheCashSlot cashSlotHelper;
+	CashSlot cashSlotInjected;
 	KnowsTheAccount accountHelper;
 	KnowsTheTeller tellerHelper;
 
-	public TellerSteps(KnowsTheCashSlot knowsTheClashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
+	public TellerSteps(CashSlot cashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
 			KnowsTheTeller knowsTheTellerInjected) {
-		this.cashSlotHelper = knowsTheClashSlotInjected;
+		this.cashSlotInjected = cashSlotInjected;
 		this.accountHelper = knowsTheAccountInjected;
 		this.tellerHelper = knowsTheTellerInjected;
 	}
 
 	@When("^I withdraw (\\$\\d+\\.\\d+)$")
 	public void i_request_$(@Transform(MoneyConverter.class) Money amount) throws Throwable {
-		CashSlot cashSlot = cashSlotHelper.getCashSlot();
+		CashSlot cashSlot = cashSlotInjected;
 		Account account = accountHelper.getMyAccount();
 		Teller teller = tellerHelper.getTeller(cashSlot, account);
 		teller.withdrawFrom(account, amount);

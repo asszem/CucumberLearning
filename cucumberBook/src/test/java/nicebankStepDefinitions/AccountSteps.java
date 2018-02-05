@@ -5,22 +5,22 @@ import org.junit.Assert;
 import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import src.main.java.nicebank.CashSlot;
 import src.main.java.nicebank.Money;
 import src.test.java.support.DITest;
 import src.test.java.support.KnowsTheAccount;
-import src.test.java.support.KnowsTheCashSlot;
 import src.test.java.support.KnowsTheTeller;
 import src.test.java.transform.MoneyConverter;
 
 public class AccountSteps {
 	private DITest depTest;
-	private KnowsTheCashSlot clashSlotHelper;
+	private CashSlot clashSlotInjected;
 	private KnowsTheAccount accountHelper;
 	private KnowsTheTeller tellerHelper;
 
-	public AccountSteps(KnowsTheCashSlot knowsTheClashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
+	public AccountSteps(CashSlot knowsTheClashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
 			KnowsTheTeller knowsTheTellerInjected, DITest depTest) {
-		this.clashSlotHelper = knowsTheClashSlotInjected;
+		this.clashSlotInjected = knowsTheClashSlotInjected;
 		this.accountHelper = knowsTheAccountInjected;
 		this.tellerHelper = knowsTheTellerInjected;
 		this.depTest = depTest;

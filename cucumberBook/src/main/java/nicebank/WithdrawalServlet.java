@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import src.test.java.support.Helper;
 import src.test.java.transform.MoneyConverter;
 
 //This class is called by the withdrawFrom method of AtmUserInterface class
