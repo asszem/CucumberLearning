@@ -14,21 +14,20 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.javalite.activejdbc.Base;
 
 import src.test.java.hooks.ServerHooks;
-import src.test.java.support.KnowsTheAccount;
-import src.test.java.support.KnowsTheTeller;
+import src.test.java.support.TestAccount;
 
 public class AtmServer {
 	private final Server server;
-	CashSlot cashSlotInjected;
-	KnowsTheAccount accountHelper;
-	KnowsTheTeller tellerHelper;
+	private CashSlot cashSlotInjected;
+	private Account accountInjected;
+	private Teller tellerInjected;
 
 	// Constructor 1 - cashslot and account retrieved from injected KnowsTheXxx objects
-	public AtmServer(int port, CashSlot cashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
-			KnowsTheTeller knowsTheTellerInjected) {
+	public AtmServer(int port, CashSlot cashSlotInjected, Account accountInjected,
+			AutomatedTeller tellerInjected) {
 		this.cashSlotInjected = cashSlotInjected;
-		this.accountHelper = knowsTheAccountInjected;
-		this.tellerHelper = knowsTheTellerInjected;
+		this.accountInjected = accountInjected;
+		this.tellerInjected = tellerInjected;
 		server = new Server(ServerHooks.PORT);
 
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -38,9 +37,9 @@ public class AtmServer {
 		context.addServlet(new ServletHolder(new AtmServlet()), "/*");
 
 		// Servlets now handle new CashSlot and Account instances
-		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlotInjected, accountHelper.getMyAccount())),
+		context.addServlet(new ServletHolder(new WithdrawalServlet(cashSlotInjected, accountInjected)),
 				"/withdraw");
-		context.addServlet(new ServletHolder(new DisplayBalanceServlet(cashSlotInjected, accountHelper.getMyAccount())),
+		context.addServlet(new ServletHolder(new DisplayBalanceServlet(cashSlotInjected, accountInjected)),
 				"/displayBalance");
 	}
 
@@ -61,12 +60,12 @@ public class AtmServer {
 
 	public void start() throws Exception {
 		server.start();
-		System.out.println("ATM Server Started. Listening on " + server.getURI());
+//		System.out.println("ATM Server Started. Listening on " + server.getURI());
 	}
 
 	public void stop() throws Exception {
 		server.stop();
-		System.out.println("ATM Server stopped");
+//		System.out.println("ATM Server stopped");
 	}
 
 	public static void main(String[] args) throws Exception {

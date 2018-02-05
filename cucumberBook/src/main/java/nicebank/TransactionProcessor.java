@@ -26,7 +26,7 @@ public class TransactionProcessor {
 		// Establish a connection to the database so it can access it to read
 		if (!Base.hasConnection()) {
 			Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
-			System.out.println("Transaction processor: Connection to database established");
+//			System.out.println("Transaction processor: Connection to database established");
 		}
 
 		do {
@@ -42,7 +42,7 @@ public class TransactionProcessor {
 
 			// If the message is not empty it will read the data from the DATABASE
 			if (message.length() > 0) {
-				System.out.println("Transaction processor: message found: " + message);
+//				System.out.println("Transaction processor: message found: " + message);
 				String[] parts = message.split(","); // value,accountnumber example: 123.45,1 - the $ sign is removed
 														// when writing to DB
 				Account account = Account.findFirst("number = ?", parts[1]);
@@ -55,11 +55,11 @@ public class TransactionProcessor {
 					// Sets the new balance by adding the new transactionAmount
 //					System.out.println("Account to CREDIT: " + parts[1]);
 					account.setBalance(account.getBalance().add(transactionAmount));
-					System.out.println("Transaction processor: " + message + " processed\n");
+//					System.out.println("Transaction processor: " + message + " processed\n");
 				} else {
 //					System.out.println("Account to DEBIT: " + parts[1]);
 					account.setBalance(account.getBalance().minus(transactionAmount));
-					System.out.println("Transaction processor: " + message + " processed\n");
+//					System.out.println("Transaction processor: " + message + " processed\n");
 				}
 			}
 		} while (true); // never stops

@@ -1,11 +1,12 @@
 package src.main.java.nicebank;
 
 import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.Table;
 
-//by inheriting from ActiveJDBC::Model it will act on the accounts table we’re about to create:
+//by inheriting from ActiveJDBC::Model it will act on the accounts table weï¿½re about to create:
 public class Account extends Model {
 
-	private Money balance = new Money();
+//	private Money balance = new Money();
 	private TransactionQueue queue = new TransactionQueue();
 
 	// A default constructor needed, othervise activeJDBC throws error:
@@ -19,8 +20,8 @@ public class Account extends Model {
 	public Account(int accountNumber) {
 		setInteger("number", accountNumber);
 		setString("balance", "0.00");
-		System.out.println("Acccount " + accountNumber + " with " + getString("balance") + " balance created");
-		System.out.println("Account number from database: " + getString("number"));
+//		System.out.println("Acccount " + accountNumber + " with " + getString("balance") + " balance created");
+//		System.out.println("Account number from database: " + getString("number"));
 	}
 
 	/**

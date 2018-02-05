@@ -7,29 +7,29 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import src.main.java.nicebank.Account;
+import src.main.java.nicebank.AutomatedTeller;
 import src.main.java.nicebank.CashSlot;
 import src.main.java.nicebank.Money;
 import src.main.java.nicebank.Teller;
-import src.test.java.support.KnowsTheAccount;
-import src.test.java.support.KnowsTheTeller;
+import src.test.java.support.TestAccount;
 import src.test.java.transform.MoneyConverter;
 
 public class CashSlotSteps {
 	CashSlot cashSlot;
-	KnowsTheAccount accountHelper;
-	KnowsTheTeller tellerHelper;
+	TestAccount accountInjected;
+	Teller tellerInjected;
 
-	public CashSlotSteps(CashSlot cashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
-			KnowsTheTeller knowsTheTellerInjected) {
+	public CashSlotSteps(CashSlot cashSlotInjected, TestAccount accountInjected,
+			AutomatedTeller tellerInjected) {
 		this.cashSlot = cashSlotInjected;
-		this.accountHelper = knowsTheAccountInjected;
-		this.tellerHelper = knowsTheTellerInjected;
+		this.accountInjected = accountInjected;
+		this.tellerInjected = tellerInjected;
 	}
 
 	// This sets the ATM balance equal to the balance that the user has
 	@Given("^ATM has sufficient money to dispose$")
 	public void atmHasSufficientMoneyToDispose() throws Throwable {
-		cashSlot.setATMBalance(accountHelper.getMyAccount().getBalance());
+		cashSlot.setATMBalance(accountInjected.getBalance());
 	}
 
 	@Given("^ATM does not have sufficient money to dispose$")
@@ -51,9 +51,8 @@ public class CashSlotSteps {
 
 	@When("^I click on the Display Balance button$")
 	public void iClickOnTheDisplayBalanceButton() throws Throwable {
-		Account account = accountHelper.getMyAccount();
-		Teller teller = tellerHelper.getTeller(cashSlot, account);
-		teller.displayBalance(account);
+		Account account = accountInjected;
+		tellerInjected.displayBalance(account);
 	}
 
 	@Then("^My account balance of (\\$\\d+\\.\\d+) should be displayed$")
