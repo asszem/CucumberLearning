@@ -11,7 +11,7 @@ public class BasicHooks {
 		System.out.println("***********Scenario " + scenario.getName() + " started***********");
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
-				System.out.println("Shutdown hook called");
+//				System.out.println("Shutdown hook called");
 				WindowsKiller.killWebDrivers();
 				WindowsKiller.killFirefoxBrowsers();
 			}
@@ -33,6 +33,7 @@ public class BasicHooks {
 	public void afterRunningScenario(Scenario scenario) {
 		System.out.println("===========Scenario " + scenario.getName() + " completed==========");
 		System.out.println(scenario.getStatus());
+		System.out.println();
 	}
 
 }

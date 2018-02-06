@@ -17,12 +17,15 @@ public class AccountSteps {
 	private TestAccount accountInjected;
 	private Teller tellerInjected;
 
+	private static int counter=1;
+
 	public AccountSteps(CashSlot knowsTheClashSlotInjected, TestAccount accountInjected,
 			AutomatedTeller tellerInjected ) {
 		this.clashSlotInjected = knowsTheClashSlotInjected;
 		this.accountInjected = accountInjected;
 		this.tellerInjected = tellerInjected;
-	}
+		System.out.println("Account steps constructor called: " + counter++);
+	} 
 
 	@Given("^my account has been credited with (\\$\\d+\\.\\d+)$")
 	public void i_have_deposited_$_in_my_account(@Transform(MoneyConverter.class) Money amount) throws Throwable {

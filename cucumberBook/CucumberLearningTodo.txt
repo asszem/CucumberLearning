@@ -1,3 +1,5 @@
 Next chapter: Chapter 11 - Simplyfying Design with Dependency Injection
 
+find out why the di from teller/account is not working
+
 

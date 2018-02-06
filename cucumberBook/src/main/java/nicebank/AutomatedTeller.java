@@ -10,7 +10,7 @@ public class AutomatedTeller implements Teller {
 		this.cashSlotHandledByTeller = cashSlot;
 		this.accountHandledByTeller = account; // The teller must know about the account it handles
 //		System.out.println("Automated teller constructor called");
-		System.out.println("Account Handled by teller in cosntructor:" + account);
+//		System.out.println("Account Handled by teller in cosntructor:" + account);
 	}
 
 	@Override
