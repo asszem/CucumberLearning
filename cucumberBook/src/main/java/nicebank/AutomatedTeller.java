@@ -9,8 +9,6 @@ public class AutomatedTeller implements Teller {
 	public AutomatedTeller(CashSlot cashSlot, Account account) {
 		this.cashSlotHandledByTeller = cashSlot;
 		this.accountHandledByTeller = account; // The teller must know about the account it handles
-//		System.out.println("Automated teller constructor called");
-//		System.out.println("Account Handled by teller in cosntructor:" + account);
 	}
 
 	@Override
@@ -38,11 +36,6 @@ public class AutomatedTeller implements Teller {
 		// When this is reached, the withdrawal request is valid. Now the money should
 		// be put in to the ATM and removed from Account
 		cashSlotHandledByTeller.dispense(amount);
-		System.out.println("**********************\n");
-		System.out.println("Amount to withdraw " + amount);
-		System.out.println("accounthandled by teller in withdraw: " + accountHandledByTeller);
-		System.out.println("accounthandled by teller balance: " + accountHandledByTeller.getString("balance"));
-		System.out.println("**********************\n");
 		accountHandledByTeller.debit(amount);
 		// Set the ATM message
 		msg = "Successfull withdrawal";

@@ -21,9 +21,8 @@ public class Account extends Model {
 	public Account(int accountNumber) {
 		setInteger("number", accountNumber);
 		setString("balance", "0.00");
-		System.out.println("Number of Account constructor called: " + (++counter));
-		// System.out.println("Acccount " + accountNumber + " with " + getString("balance") + " balance created");
-		// System.out.println("Account number from database: " + getString("number"));
+		System.out.println("Acccount " + accountNumber + " with " + getString("balance") + " balance created");
+		System.out.println("Account number from database: " + getString("number"));
 	}
 
 	/**

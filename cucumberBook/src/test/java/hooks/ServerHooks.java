@@ -2,26 +2,25 @@ package src.test.java.hooks;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import src.main.java.nicebank.Account;
 import src.main.java.nicebank.AtmServer;
-import src.main.java.nicebank.AutomatedTeller;
 import src.main.java.nicebank.CashSlot;
-import src.main.java.nicebank.Teller;
+import src.test.java.support.KnowsTheAccount;
+import src.test.java.support.KnowsTheTeller;
 import src.test.java.support.MyWebDriver;
 
 public class ServerHooks {
 
 	private MyWebDriver webDriver;
 	private CashSlot cashSlot;
-	private Account accountInjected;
-	private Teller tellerInjected;
+	private KnowsTheAccount accountHelper;
+	private KnowsTheTeller tellerHelper;
 
-	public ServerHooks(MyWebDriver myWebDriverInjected, CashSlot cashSlotInjected,
-			Account accountInjected, AutomatedTeller tellerInjected) {
+	public ServerHooks(MyWebDriver myWebDriverInjected, CashSlot cashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
+			KnowsTheTeller knowsTheTellerInjected) {
 		this.webDriver = myWebDriverInjected;
-		this.cashSlot = cashSlotInjected;
-		this.tellerInjected = tellerInjected;
-		this.accountInjected = accountInjected;
+		this.cashSlot=cashSlotInjected;
+		this.accountHelper=knowsTheAccountInjected;
+		this.tellerHelper=knowsTheTellerInjected;
 	}
 
 	public static final int PORT = 8887;
@@ -29,8 +28,7 @@ public class ServerHooks {
 
 	@Before
 	public void startATMServer() throws Exception {
-		//cast to AutomatedTeller or AtmUserInterface depending on teller type
-		server = new AtmServer(PORT, cashSlot, accountInjected, (AutomatedTeller) tellerInjected);
+		server = new AtmServer(PORT, cashSlot, accountHelper, tellerHelper);
 		server.start();
 	}
 
