@@ -10,7 +10,6 @@ package src.main.java.nicebank;
 
 import org.javalite.activejdbc.Base;
 
-import src.test.java.support.TestAccount;
 
 /***
  * The TransactionProcesssor once it is started up, it then enters a loop that
@@ -47,7 +46,7 @@ public class TransactionProcessor {
 				System.out.println("Transaction processor: message found: " + message);
 				String[] parts = message.split(","); // value,accountnumber example: 123.45,1 - the $ sign is removed
 														// when writing to DB
-				TestAccount account = TestAccount.findFirst("number = ?", parts[1]);
+				Account account = Account.findFirst("number = ?", parts[1]);
 				if (account == null) {
 					throw new RuntimeException("Account number not found: " + parts[1]);
 				}
