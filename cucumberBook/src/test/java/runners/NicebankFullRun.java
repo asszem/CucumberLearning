@@ -8,12 +8,15 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		plugin= {"pretty", "html:out"},
 		glue = {"src.test.java.nicebankStepDefinitions", "src.test.java.hooks" }, 
 		features = "cucumberBook/src/test/resources/features",
 		monochrome = true,
 		dryRun = false,
-		snippets = SnippetType.CAMELCASE
+		snippets = SnippetType.CAMELCASE,
+		plugin= {"progress",
+				"html:TestResultLogs/html",
+				"pretty:TestResultLogs/prettyResult.txt", 
+				"testng:TestResultLogs/testngResult.txt"}
 		)
 public class NicebankFullRun {
 

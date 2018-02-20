@@ -32,8 +32,8 @@ public class BasicHooks {
 	@After
 	public void afterRunningScenario(Scenario scenario) {
 		System.out.println("===========Scenario " + scenario.getName() + " completed==========");
-		System.out.println(scenario.getStatus());
-		System.out.println();
+		System.out.println("\t\t\tResult: " +scenario.getStatus());
+		System.out.println("===========Scenario " + scenario.getName() + " completed==========");
 	}
 
 }

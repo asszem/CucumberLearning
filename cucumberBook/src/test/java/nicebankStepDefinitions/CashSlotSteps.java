@@ -7,23 +7,27 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import src.main.java.nicebank.Account;
+import src.main.java.nicebank.AutomatedTeller;
 import src.main.java.nicebank.CashSlot;
 import src.main.java.nicebank.Money;
 import src.main.java.nicebank.Teller;
 import src.test.java.support.KnowsTheAccount;
-import src.test.java.support.KnowsTheTeller;
 import src.test.java.transform.MoneyConverter;
 
 public class CashSlotSteps {
 	CashSlot cashSlot;
 	KnowsTheAccount accountHelper;
-	KnowsTheTeller tellerHelper;
+	Teller tellerInjected;
+	// KnowsTheTeller tellerHelper;
 
 	public CashSlotSteps(CashSlot cashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
-			KnowsTheTeller knowsTheTellerInjected) {
+			AutomatedTeller automatedTellerInjected) {
 		this.cashSlot = cashSlotInjected;
 		this.accountHelper = knowsTheAccountInjected;
-		this.tellerHelper = knowsTheTellerInjected;
+
+		// Only one type of teller should be enabled
+		this.tellerInjected = automatedTellerInjected;
+		// this.tellerInjected = AtmUserInterfaceInjected;
 	}
 
 	// This sets the ATM balance equal to the balance that the user has
@@ -52,8 +56,8 @@ public class CashSlotSteps {
 	@When("^I click on the Display Balance button$")
 	public void iClickOnTheDisplayBalanceButton() throws Throwable {
 		Account account = accountHelper.getMyAccount();
-		Teller teller = tellerHelper.getTeller(cashSlot, account);
-		teller.displayBalance(account);
+//		Teller teller = tellerHelper.getTeller(cashSlot, account);
+		tellerInjected.displayBalance(account);
 	}
 
 	@Then("^My account balance of (\\$\\d+\\.\\d+) should be displayed$")

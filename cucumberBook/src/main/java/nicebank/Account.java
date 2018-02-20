@@ -1,11 +1,10 @@
 package src.main.java.nicebank;
 
+import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.Model;
 
 //by inheriting from ActiveJDBC::Model it will act on the 'accounts' table
 public class Account extends Model {
-
-	private static int counter = 0;
 
 	// private Money balance = new Money();
 	private TransactionQueue queue = new TransactionQueue();
@@ -48,10 +47,6 @@ public class Account extends Model {
 	}
 
 	public Money getBalance() {
-		// System.out.println("Account balance:\n" + balance);
-		// return balance;
-		// return BalanceStore.getBalance();
-
 		// To refresh the DB data before retrieveing....
 		refresh();
 
@@ -60,12 +55,8 @@ public class Account extends Model {
 	}
 
 	public void setBalance(Money amount) {
-		// System.out.println("Balance to set in database: "+
-		// amount.toString().substring(1));
-		setString("balance", amount.toString().substring(1)); // substring(1) removes the leading $ sign from balance
-																// string
+		setString("balance", amount.toString().substring(1)); // substring(1) removes the leading $ sign from balance string
 		boolean result = saveIt(); // ActiveJDBC method to commit the balance change
-		// System.out.println("Account: setBalance saveIt() called, result: " + result);
 	}
 
 	public int getNumber() {

@@ -33,7 +33,8 @@ public class WithdrawalServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//A new teller instance is required, because the Helper class will return the AtmUserInterface teller
-		Teller automatedTeller = new AutomatedTeller(cashSlot, account);
+//		Teller automatedTeller = new AutomatedTeller(cashSlot, account);
+		Teller automatedTeller = new AutomatedTeller(cashSlot);
 		String amountEnteredToATM = request.getParameter("amount");
 		Money withdrawnAmount = new MoneyConverter().transform(amountEnteredToATM);
 		

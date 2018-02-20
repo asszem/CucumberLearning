@@ -7,30 +7,21 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import src.main.java.nicebank.CashSlot;
 import src.main.java.nicebank.Money;
-import src.test.java.support.DITest;
 import src.test.java.support.KnowsTheAccount;
-import src.test.java.support.KnowsTheTeller;
 import src.test.java.transform.MoneyConverter;
 
 public class AccountSteps {
-	private DITest depTest;
 	private CashSlot clashSlotInjected;
 	private KnowsTheAccount accountHelper;
-	private KnowsTheTeller tellerHelper;
 
-	public AccountSteps(CashSlot knowsTheClashSlotInjected, KnowsTheAccount knowsTheAccountInjected,
-			KnowsTheTeller knowsTheTellerInjected, DITest depTest) {
+	public AccountSteps(CashSlot knowsTheClashSlotInjected, KnowsTheAccount knowsTheAccountInjected) {
 		this.clashSlotInjected = knowsTheClashSlotInjected;
 		this.accountHelper = knowsTheAccountInjected;
-		this.tellerHelper = knowsTheTellerInjected;
-		this.depTest = depTest;
 	}
 
 	@Given("^my account has been credited with (\\$\\d+\\.\\d+)$")
 	public void i_have_deposited_$_in_my_account(@Transform(MoneyConverter.class) Money amount) throws Throwable {
 
-		System.out.println("Dependency injection test");
-		depTest.printMsg();
 
 		// Original balance
 		Money balanceBefore = accountHelper.getMyAccount().getBalance();
